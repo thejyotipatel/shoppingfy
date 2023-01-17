@@ -33,17 +33,9 @@ import DetailItem from '../layout/DetailItem'
 import { useState } from 'react'
 import Item from '../components/Item'
 import { useEffect } from 'react'
-import {connect} from 'react-redux'
-
-const Data = [
-  { item: 'avacado' },
-  { item: 'mango' },
-  { item: 'banana' },
-  { item: 'avacado' },
-  { item: 'mango' },
-  { item: 'banana' },
-]
-const Home = ({list}) => {
+import { connect } from 'react-redux'
+ 
+const Home = ({ list=[] }) => {
   // const { listOfItems, displayDetailItem } = useAppContext()
   const [searchItems, setSearchItems] = useState('')
   const addItem = (id) => {
@@ -96,7 +88,9 @@ const Home = ({list}) => {
           Meat and Fish
         </Text>
         <Wrap mt={'8'} spacing='8'>
-          {list.filter((item) => item.name.toLowerCase().includes(searchItems)).map((items) => {
+          {list
+            .filter((item) => item.name.toLowerCase().includes(searchItems))
+            .map((items) => {
               return (
                 <Item
                   key={items.id}
@@ -112,8 +106,8 @@ const Home = ({list}) => {
   )
 }
 
-const mapStateToProps = state=>{
-  return {list: state.list}
+const mapStateToProps = (state) => {
+  return { list: state.list }
 }
 
-export default connect(mapStateToProps) (Home)
+export default connect(mapStateToProps)(Home)

@@ -64,7 +64,7 @@ const AddItemsList = () => {
     if (!value.name || !value.category) {
       console.log('submit !!!')
     }
-     
+
     // displayAlert()
   }
 
@@ -163,11 +163,10 @@ const AddItemsList = () => {
               onClick={() => setValue(initalState)}
               color={'gray.400'}
               variant='unstyled'
-              >
+            >
               clear
             </Button>
-            <Button
-             type='submit' colorScheme={'green'}>
+            <Button type='submit' colorScheme={'green'}>
               Save
             </Button>
           </Flex>

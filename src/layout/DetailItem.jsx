@@ -31,12 +31,16 @@ import {
 } from '@chakra-ui/react'
 import { RiSearchLine } from 'react-icons/ri'
 import { HiPencil } from 'react-icons/hi'
-import { MdOutlineKeyboardBackspace } from 'react-icons/md' 
-import {connect} from 'react-redux'
-import {BACK_BUTTEN,ADD_ITEM_TO_LIST,DELETE_ITEM_FROM_LIST} from '../context/action'
+import { MdOutlineKeyboardBackspace } from 'react-icons/md'
+import { connect } from 'react-redux'
+import {
+  BACK_BUTTEN,
+  ADD_ITEM_TO_LIST,
+  DELETE_ITEM_FROM_LIST,
+} from '../context/action'
 
-const DetailItem = ({itemDetails,backButten,addItemToList,deleteItem}) => {
-  const {category,id,image,name,note} = itemDetails[0]
+const DetailItem = ({ itemDetails, backButten, addItemToList, deleteItem }) => {
+  const { category, id, image, name, note } = itemDetails[0]
 
   return (
     <VStack
@@ -48,7 +52,7 @@ const DetailItem = ({itemDetails,backButten,addItemToList,deleteItem}) => {
       position={'relative'}
     >
       <Button
-        onClick={()=>backButten()}
+        onClick={() => backButten()}
         width={'inherit'}
         justifyContent={'left'}
         alignItems='center'
@@ -67,7 +71,7 @@ const DetailItem = ({itemDetails,backButten,addItemToList,deleteItem}) => {
         back
       </Button>
       <Box w={'100%'} py='4'>
-        <Image src={ image} alt='img' borderRadius={'2xl'} />
+        <Image src={image} alt='img' borderRadius={'2xl'} />
         <VStack w={'inherit'} py='4'>
           <Text
             fontSize={'xs'}
@@ -79,7 +83,7 @@ const DetailItem = ({itemDetails,backButten,addItemToList,deleteItem}) => {
             Name
           </Text>
           <Text fontWeight={'500'} textAlign={'left'} w='inherit'>
-            { name}
+            {name}
           </Text>
         </VStack>
         <VStack py='4' w='inherit'>
@@ -93,7 +97,7 @@ const DetailItem = ({itemDetails,backButten,addItemToList,deleteItem}) => {
             Category
           </Text>
           <Text fontWeight={'500'} textAlign={'left'} w='inherit'>
-            { category}
+            {category}
           </Text>
         </VStack>
         <VStack py='4' w='inherit'>
@@ -107,7 +111,7 @@ const DetailItem = ({itemDetails,backButten,addItemToList,deleteItem}) => {
             Note
           </Text>
           <Text fontWeight={'500'} textAlign={'justify'} w='inherit'>
-            { note}
+            {note}
           </Text>
         </VStack>
         {/* <Flex py={'4'} width={'inherit'} justifyContent='space-evenly'>
@@ -132,7 +136,7 @@ const DetailItem = ({itemDetails,backButten,addItemToList,deleteItem}) => {
           py={'5'}
           fontSize={'xl'}
           fontWeight={'bold'}
-          onClick={() => deleteItem( )}
+          onClick={() => deleteItem()}
         >
           Delete item
         </Button>
@@ -145,7 +149,7 @@ const DetailItem = ({itemDetails,backButten,addItemToList,deleteItem}) => {
           borderRadius={0}
           fontSize={'xl'}
           fontWeight={'bold'}
-          onClick={() => addItemToList()}
+          // onClick={() => addItemToList()}
         >
           Add to list
         </Button>
@@ -154,15 +158,23 @@ const DetailItem = ({itemDetails,backButten,addItemToList,deleteItem}) => {
   )
 }
 
-const mapStateToProps=(state)=>{
-  return{itemDetails:state.itemDetails}
+const mapStateToProps = (state) => {
+  return { itemDetails: state.itemDetails }
 }
-const mapDispatchToProps=(state,dispatch,ownProps)=>{
-      console.log(state)
-  // return{
-  //   backButten:()=> dispatch({type:BACK_BUTTEN }),
-  //   addItemToList:()=> dispatch({type: ADD_ITEM_TO_LIST, payload:{id:ownProps.ItemDetails[0].id}}),
-  //   deleteItem:()=> dispatch({type: DELETE_ITEM_FROM_LIST, payload:{id:ownProps.ItemDetails[0].id}})
-  // }
-} 
-export default connect(mapStateToProps,mapDispatchToProps)(DetailItem)
+const mapDispatchToProps = (dispatch, ownProps) => {
+  // console.log(state)
+  return {
+    backButten: () => dispatch({ type: BACK_BUTTEN }),
+    // addItemToList: () =>
+    //   dispatch({
+    //     type: ADD_ITEM_TO_LIST,
+    //     payload: { id: ownProps.ItemDetails[0].id },
+    //   }),
+    deleteItem: () =>
+      dispatch({
+        type: DELETE_ITEM_FROM_LIST,
+        // payload: { id: ownProps.ItemDetails[0].id },
+      }),
+  }
+}
+export default connect(mapStateToProps, mapDispatchToProps)(DetailItem)

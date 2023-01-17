@@ -13,13 +13,12 @@ import { RiSearchLine } from 'react-icons/ri'
 import { HiMinus, HiPencil, HiPlus } from 'react-icons/hi'
 import img from '../assets/images/source.svg'
 import shopping_re from '../assets/images/undraw_gone_shopping_re_2lau.svg'
-// import { useAppContext } from '../context/appContext'
 import { AiFillDelete, AiOutlineDelete } from 'react-icons/ai'
+import { connect } from 'react-redux'
+import {ADD_ITEM_BUTTON} from '../context/action'
 
-const ShoppingList = () => {
-  // const { addItemBtn, deleteItemToList, shoopingList, setCompleteItem } =
-    // useAppContext()
-
+const ShoppingList = ({shoopingList,addItemBtn}) => {
+   
   // const [complete, setComplete] = useState(false)
   const [toogle, setToogle] = useBoolean()
   const [toogleAmount, setToogleAmount] = useBoolean()
@@ -29,8 +28,7 @@ const ShoppingList = () => {
     a = amount <= 1 ? a == 1 : a
     return setAmount(amount + a)
   }
-  // console.log(shoopingList.length)
-  // console.log(shoopingList)
+  
   return (
     <>
       <VStack
@@ -53,9 +51,11 @@ const ShoppingList = () => {
             <Text color={'white'} fontSize={'1.2em'} textAlign='left'>
               Didn't find what you need?
             </Text>
-            <Button 
-            // onClick={addItemBtn}
-            >Add item</Button>
+            <Button
+            onClick={()=>addItemBtn()}
+            >
+              Add item
+            </Button>
           </VStack>
         </Flex>
         <Flex width={'100%'} justifyContent={'space-between'}>
@@ -77,14 +77,9 @@ const ShoppingList = () => {
         >
           Meat and fish
         </Text>
-        {/* {shoopingList.length === 0 && (
+        {shoopingList.length === 0 ? (
           <Image src={shopping_re} alt='shopping_re.avg' />
-        )} */}
-
-        {/* {shoopingList.length > 0 &&
-          shoopingList.map((list) => {
-            // console.log(list.id)
-            return (
+        ): ( 
               <Flex
                 key={list[0]?.id}
                 width={'100%'}
@@ -151,14 +146,10 @@ const ShoppingList = () => {
                   )}
                 </Flex>
               </Flex>
-            )
-          })}
-*/}
-        
-        
-        
-       
-          <Flex  
+            ) 
+                  }
+
+        <Flex
           position={'absolute'}
           bottom='0'
           width={'inherit'}
@@ -193,4 +184,15 @@ const ShoppingList = () => {
   )
 }
 
-export default ShoppingList
+const mapStateToProps = (state) => {
+  return {
+    shoopingList: state.shoopingList
+  }
+}
+const mapDispatchToProps = (dispatch, ownProps) => {
+  return {
+    addItemBtn: ()=> dispatch({type:ADD_ITEM_BUTTON})
+  }
+}
+
+export default connect(mapStateToProps,mapDispatchToProps)(ShoppingList)

@@ -1,19 +1,30 @@
-import React from 'react'
+import React,{useEffect} from 'react'
 import { Grid, Box, Alert, AlertIcon } from '@chakra-ui/react'
-import {connect} from 'react-redux'
+import { connect } from 'react-redux'
+import {CLEAR_ALERT} from '../context/action'
 import Sidebar from '../layout/Sidebar'
 import Home from './Home'
 import AddItemsList from '../layout/AddItemsList'
 import ShoppingList from '../layout/ShoppingList'
 import DetailItem from '../layout/DetailItem'
 
-const Dashboard = ({ detailBox ,
+const Dashboard = ({
+  showAlert,
+  alertType,
+  alertText,
+  detailBox,
   addItemBox,
-  listsBox }) => {
-  
+  listsBox,clearAlert
+}) => {
+  useEffect(() => {
+      setTimeout(() => {
+        clearAlert()
+      }, 2000)
+  }, [showAlert])
+
   return (
     <>
-      {/* {showAlert && (
+      {showAlert && (
         <Alert
           position={'absolute'}
           top={'1em'}
@@ -26,25 +37,33 @@ const Dashboard = ({ detailBox ,
           <AlertIcon />
           {alertText}
         </Alert>
-      )} */}
+      )}
       <Grid gridTemplateColumns={'73% 27%'} justify-items={'stretch'}>
         <Box>
           <Sidebar />
         </Box>
-         {detailBox && <DetailItem />}
+        {detailBox && <DetailItem />}
         {addItemBox && <AddItemsList />}
         {listsBox && <ShoppingList />}
-        <ShoppingList />
       </Grid>
     </>
   )
 }
 
-const mapStateToProps= state=>{
-  // console.log(state)
-  return {  detailBox: state.detailBox,
-  addItemBox: state.addItemBox,
-  listsBox: state.listBox }
+const mapStateToProps = (state) => {
+  return {
+    detailBox: state.detailBox,
+    addItemBox: state.addItemBox,
+    listsBox: state.listsBox,
+    showAlert: state.showAlert,
+    alertType: state.alertType,
+    alertText: state.alertText,
+  }
 }
-
-export default connect(mapStateToProps)(Dashboard)
+const mapDispatchToProps = (dispatch, ownProps) => {
+  return {
+    clearAlert: () =>
+      dispatch({ type: CLEAR_ALERT }),
+  }
+}
+export default connect(mapStateToProps,mapDispatchToProps)(Dashboard)
