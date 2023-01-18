@@ -34,8 +34,13 @@ import {
 } from '@chakra-ui/react'
 import { RiSearchLine } from 'react-icons/ri'
 import { HiPencil } from 'react-icons/hi'
+import { MdOutlineKeyboardBackspace } from 'react-icons/md'
 import { useState } from 'react'
-// import { useAppContext } from '../context/appContext'
+
+import { connect } from 'react-redux'
+import {
+  BACK_BUTTEN, ADD_ITEM_TO_LIST
+} from '../context/action'
 
 const initalState = {
   name: '',
@@ -44,16 +49,8 @@ const initalState = {
   category: '',
 }
 
-const AddItemsList = () => {
-  // const {
-  //   listOfItems,
-  //   showAlert,
-  //   displayAlert,
-  //   name,
-  //   note,
-  //   imageUrl,
-  //   category,
-  // } = useAppContext()
+const AddItemsList = ({itemDetails, backButten,addItemToList}) => {
+   
   const [value, setValue] = useState(initalState)
   const handleChange = (e) => {
     setValue({ ...value, [e.target.name]: e.target.value })
@@ -61,15 +58,14 @@ const AddItemsList = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault()
-    if (!value.name || !value.category) {
+    if (value.name  !== '' || value.category  !== '') {
       console.log('submit !!!')
+      addItemToList()
     }
-
-    // displayAlert()
+    console.log(value )
   }
 
   return (
-    <>
       <VStack
         p={'4'}
         width={'100%'}
@@ -78,6 +74,27 @@ const AddItemsList = () => {
         minH={'fit-content'}
         spacing='4'
       >
+        <Box w={'100%'} pb='4'> 
+          <Button
+           mb='4'
+          onClick={() => backButten()}
+          width={'inherit'}
+          justifyContent={'left'}
+          alignItems='center'
+          display={'flex'}
+          color='green.500'
+          fontSize='1.2em'
+          gap={'1'}
+          w='fit-content'
+          variant={'unstyled'}
+          textAlign='left'
+          _hover={{
+            textDecoration: 'none',
+          }}
+        >
+          <Icon fontSize='1.5em' as={MdOutlineKeyboardBackspace} />
+          back
+        </Button>
         <Text fontSize={'1.2em'} textAlign='left' w={'inherit'}>
           Add a new item
         </Text>
@@ -114,6 +131,7 @@ const AddItemsList = () => {
               placeholder='Enter a note'
               size='sm'
               name='note'
+              value={value.note}
               onChange={handleChange}
             />
           </FormControl>
@@ -124,6 +142,7 @@ const AddItemsList = () => {
               borderWidth='0.12em'
               name='imageUrl'
               type='url'
+              value={value.imageUrl}
               onChange={handleChange}
               placeholder='Enter a url'
               _focusVisible={{
@@ -148,6 +167,7 @@ const AddItemsList = () => {
               type='text'
               placeholder='Enter a category'
               name='category'
+              value={value.category}
               onChange={handleChange}
               id='category'
               list='category'
@@ -170,10 +190,20 @@ const AddItemsList = () => {
               Save
             </Button>
           </Flex>
-        </Box>
+        </Box></Box>
       </VStack>
-    </>
   )
 }
 
-export default AddItemsList
+const mapStateToProps = (state) => {
+  return { itemDetails: state.itemDetails }
+}
+const mapDispatchToProps = (dispatch, ownProps) => {
+  console.log(value)
+  return {
+    backButten: () => dispatch({ type: BACK_BUTTEN }),
+    addItemToList: () => dispatch({ type: ADD_ITEM_TO_LIST,  }),
+    
+  }
+}
+export default connect(mapStateToProps, mapDispatchToProps)(AddItemsList)

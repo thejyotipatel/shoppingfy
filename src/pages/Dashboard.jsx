@@ -1,7 +1,7 @@
-import React,{useEffect} from 'react'
+import React, { useEffect } from 'react'
 import { Grid, Box, Alert, AlertIcon } from '@chakra-ui/react'
 import { connect } from 'react-redux'
-import {CLEAR_ALERT} from '../context/action'
+import { CLEAR_ALERT } from '../context/action'
 import Sidebar from '../layout/Sidebar'
 import Home from './Home'
 import AddItemsList from '../layout/AddItemsList'
@@ -14,12 +14,13 @@ const Dashboard = ({
   alertText,
   detailBox,
   addItemBox,
-  listsBox,clearAlert
+  listsBox,
+  clearAlert,
 }) => {
   useEffect(() => {
-      setTimeout(() => {
-        clearAlert()
-      }, 2000)
+    setTimeout(() => {
+      clearAlert()
+    }, 2000)
   }, [showAlert])
 
   return (
@@ -62,8 +63,7 @@ const mapStateToProps = (state) => {
 }
 const mapDispatchToProps = (dispatch, ownProps) => {
   return {
-    clearAlert: () =>
-      dispatch({ type: CLEAR_ALERT }),
+    clearAlert: () => dispatch({ type: CLEAR_ALERT }),
   }
 }
-export default connect(mapStateToProps,mapDispatchToProps)(Dashboard)
+export default connect(mapStateToProps, mapDispatchToProps)(Dashboard)

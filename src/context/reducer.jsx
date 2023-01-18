@@ -80,6 +80,20 @@ const reducer = (state, action) => {
       alertText: 'Item is deleted!',
     }
   }
+  if (action.type === ADD_ITEM_TO_LIST) {
+    console.log(new Date().getUTCMilliseconds())
+    // let tempList = state.list.filter(listItem  => listItem.id !== state.itemDetails[0].id)
+    //  return {
+    //   ...state,
+    //   list: tempList,
+    //   detailBox: false,
+    //   addItemBox: false,
+    //   listsBox: true,
+    //   showAlert: true,
+    //   alertType: 'warning',
+    //   alertText: 'Item is deleted!',
+    // }
+  }
   return state
 }
 
