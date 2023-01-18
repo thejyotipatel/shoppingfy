@@ -196,10 +196,10 @@ const AddItemsList = ({itemDetails, backButten,addItemToList}) => {
 }
 
 const mapStateToProps = (state) => {
+  console.log(state)
   return { itemDetails: state.itemDetails }
 }
-const mapDispatchToProps = (dispatch, ownProps) => {
-  console.log(value)
+const mapDispatchToProps = (dispatch, ownProps,state) => {
   return {
     backButten: () => dispatch({ type: BACK_BUTTEN }),
     addItemToList: () => dispatch({ type: ADD_ITEM_TO_LIST,  }),

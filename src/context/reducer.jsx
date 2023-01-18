@@ -1,25 +1,17 @@
 import {
-  CLEAR_ALERT,
   DISPLAY_ALERT,
-  HANDLE_CHANGE,
+  CLEAR_ALERT,
   DISPLAY_ITEM_DETAILS,
-  DELETE_ITEM,
   ADD_ITEM_TO_LIST,
   DELETE_ITEM_FROM_LIST,
+  ADD_ITEM_BUTTON,
   BACK_BUTTEN,
-  ADD_ITEM_TOOGLE_BUTTON,
   SET_COMPLETE_ITEM,
-  CHECK_ALREADY_PRESENT_ITEM,ADD_ITEM_BUTTON
+  CHECK_ALREADY_PRESENT_ITEM,
 } from './action'
 
 const reducer = (state, action) => {
-  if (action.type === HANDLE_CHANGE) {
-    return {
-      ...state,
-      [action.payload.name]: action.payload.value,
-    }
-  }
-   if (action.type === DISPLAY_ALERT) {
+  if (action.type === DISPLAY_ALERT) {
     return {
       ...state,
       showAlert: true,
@@ -36,19 +28,16 @@ const reducer = (state, action) => {
     }
   }
   if (action.type === DISPLAY_ITEM_DETAILS) {
-    // console.log(state)
+    let tempId = state.list.filter(
+        (listItem) => listItem.id === action.payload.id
+      )
     return {
       ...state,
-      itemDetails: state.list.filter(
-        (listItem) => listItem.id === action.payload.id
-      ),
+      itemDetails: tempId,
       detailBox: true,
       addItemBox: false,
       listsBox: false,
-      
-
     }
-    // console.log(state)
   }
   if (action.type === BACK_BUTTEN) {
     return {
@@ -59,17 +48,18 @@ const reducer = (state, action) => {
     }
   }
   if (action.type === ADD_ITEM_BUTTON) {
-  return {
-      ...state, 
+    return {
+      ...state,
       detailBox: false,
       addItemBox: true,
       listsBox: false,
-  }
+    }
   }
   if (action.type === DELETE_ITEM_FROM_LIST) {
-    // console.log(state.itemDetails[0].id)
-    let tempList = state.list.filter(listItem  => listItem.id !== state.itemDetails[0].id)
-     return {
+    let tempList = state.list.filter(
+      (listItem) => listItem.id !== state.itemDetails[0].id
+    )
+    return {
       ...state,
       list: tempList,
       detailBox: false,
