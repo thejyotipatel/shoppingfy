@@ -1,4 +1,3 @@
-import { Sidebar } from './layout'
 import Dashboard from './pages/Dashboard'
 import List from './utils/List'
 import { createStore } from 'redux'
@@ -22,7 +21,6 @@ const initialStore = {
 const store = createStore(reducer, initialStore)
 
 function App() {
-  
   return (
     <Provider store={store}>
       <Dashboard />
