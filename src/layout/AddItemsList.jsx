@@ -38,9 +38,7 @@ import { MdOutlineKeyboardBackspace } from 'react-icons/md'
 import { useState } from 'react'
 
 import { connect } from 'react-redux'
-import {
-  BACK_BUTTEN, ADD_ITEM_TO_LIST
-} from '../context/action'
+import { BACK_BUTTEN, ADD_ITEM_TO_LIST } from '../context/action'
 
 const initalState = {
   name: '',
@@ -49,8 +47,7 @@ const initalState = {
   category: '',
 }
 
-const AddItemsList = ({itemDetails, backButten,addItemToList}) => {
-   
+const AddItemsList = ({ itemDetails, backButten, addItemToList }) => {
   const [value, setValue] = useState(initalState)
   const handleChange = (e) => {
     setValue({ ...value, [e.target.name]: e.target.value })
@@ -58,25 +55,25 @@ const AddItemsList = ({itemDetails, backButten,addItemToList}) => {
 
   const handleSubmit = (e) => {
     e.preventDefault()
-    if (value.name  !== '' || value.category  !== '') {
+    if (value.name !== '' || value.category !== '') {
       console.log('submit !!!')
-      addItemToList()
+      addItemToList(value)
     }
-    console.log(value )
+    // console.log(value)
   }
 
   return (
-      <VStack
-        p={'4'}
-        width={'100%'}
-        maxW='400px'
-        height={'100vh'}
-        minH={'fit-content'}
-        spacing='4'
-      >
-        <Box w={'100%'} pb='4'> 
-          <Button
-           mb='4'
+    <VStack
+      p={'4'}
+      width={'100%'}
+      maxW='400px'
+      height={'100vh'}
+      minH={'fit-content'}
+      spacing='4'
+    >
+      <Box w={'100%'} pb='4'>
+        <Button
+          mb='4'
           onClick={() => backButten()}
           width={'inherit'}
           justifyContent={'left'}
@@ -190,8 +187,9 @@ const AddItemsList = ({itemDetails, backButten,addItemToList}) => {
               Save
             </Button>
           </Flex>
-        </Box></Box>
-      </VStack>
+        </Box>
+      </Box>
+    </VStack>
   )
 }
 
@@ -199,11 +197,11 @@ const mapStateToProps = (state) => {
   console.log(state)
   return { itemDetails: state.itemDetails }
 }
-const mapDispatchToProps = (dispatch, ownProps,state) => {
+const mapDispatchToProps = (dispatch) => {
   return {
     backButten: () => dispatch({ type: BACK_BUTTEN }),
-    addItemToList: () => dispatch({ type: ADD_ITEM_TO_LIST,  }),
-    
+    addItemToList: (props) =>
+      dispatch({ type: ADD_ITEM_TO_LIST, payload: { item: props } }),
   }
 }
 export default connect(mapStateToProps, mapDispatchToProps)(AddItemsList)
