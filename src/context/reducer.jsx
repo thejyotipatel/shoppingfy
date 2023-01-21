@@ -72,9 +72,9 @@ const reducer = (state, action) => {
   }
   if (action.type === ADD_ITEM_TO_LIST) {
     
-    // action.payload.item.id = new Date().getUTCMilliseconds()
+    // action.payload.item.id =  
     let tempItem = action.payload.item
-    tempItem.id = 2
+    tempItem.id = new Date().getUTCMilliseconds()
     console.log(action.payload.item)
     
     // let tempList = state.list.filter(listItem  => listItem.id !== state.itemDetails[0].id)
@@ -84,8 +84,8 @@ const reducer = (state, action) => {
       detailBox: false,
       addItemBox: true,
       listsBox: false,
-      showAlert: false,
-      alertType: 'warning',
+      showAlert: true,
+      alertType: 'success',
       alertText: 'Item is added!',
     }
   }
@@ -108,6 +108,7 @@ const reducer = (state, action) => {
   if (action.type === RENAME_LIST) {
     return {
       ...state, 
+      currentShoopingListName: action.payload.listName,
     }
   }
   return state

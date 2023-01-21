@@ -17,7 +17,7 @@ import { AiFillDelete, AiOutlineDelete } from 'react-icons/ai'
 import { connect } from 'react-redux'
 import {ADD_ITEM_BUTTON} from '../context/action'
 
-const ShoppingList = ({shoopingList,addItemBtn}) => {
+const ShoppingList = ({shoopingList,addItemBtn,currentShoopingListName,renameShoppingList}) => {
    
   // const [complete, setComplete] = useState(false)
   const [toogle, setToogle] = useBoolean()
@@ -60,10 +60,11 @@ const ShoppingList = ({shoopingList,addItemBtn}) => {
         </Flex>
         <Flex width={'100%'} justifyContent={'space-between'}>
           <Text fontSize='1.5em' fontWeight={'600'} textAlign={'left'}>
-            Shooping list
+           {currentShoopingListName}
           </Text>
           <IconButton
             variant={'unstyled'}
+            onCLick={()=>renameShoppingList()}
             icon={<HiPencil fontSize={'1.5em'} color={'gray.400'} />}
           />
         </Flex>
@@ -91,7 +92,7 @@ const ShoppingList = ({shoopingList,addItemBtn}) => {
                     colorScheme='green'
                     size={'lg'}
                     borderColor='green.300'
-                    onChange={() => setCompleteItem(list?.id)}
+                    onChange={() => setCompleteItem( list?.id)}
                   ></Checkbox>
                 )}
                 <Button
@@ -186,12 +187,14 @@ const ShoppingList = ({shoopingList,addItemBtn}) => {
 
 const mapStateToProps = (state) => {
   return {
-    shoopingList: state.shoopingList
+    shoopingList: state.shoopingList,
+    currentShoopingListName: state.currentShoopingListName,
   }
 }
 const mapDispatchToProps = (dispatch, ownProps) => {
   return {
-    addItemBtn: ()=> dispatch({type:ADD_ITEM_BUTTON})
+    addItemBtn: ()=> dispatch({type:ADD_ITEM_BUTTON}),
+    renameShoppingList: (props)=> dispatch({type:RENAME_LIST, payload:{listName: props}})
   }
 }
 

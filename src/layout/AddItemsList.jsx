@@ -43,8 +43,9 @@ import { BACK_BUTTEN, ADD_ITEM_TO_LIST } from '../context/action'
 const initalState = {
   name: '',
   note: '',
-  imageUrl: '',
+  image: '',
   category: '',
+  totalItems: 1,
 }
 
 const AddItemsList = ({ itemDetails, backButten, addItemToList }) => {
@@ -56,10 +57,9 @@ const AddItemsList = ({ itemDetails, backButten, addItemToList }) => {
   const handleSubmit = (e) => {
     e.preventDefault()
     if (value.name !== '' || value.category !== '') {
-      console.log('submit !!!')
       addItemToList(value)
+      setValue(initalState)
     }
-    // console.log(value)
   }
 
   return (
@@ -137,9 +137,9 @@ const AddItemsList = ({ itemDetails, backButten, addItemToList }) => {
             <Input
               borderColor={'green.100'}
               borderWidth='0.12em'
-              name='imageUrl'
+              name='image'
               type='url'
-              value={value.imageUrl}
+              value={value.image}
               onChange={handleChange}
               placeholder='Enter a url'
               _focusVisible={{
@@ -194,7 +194,6 @@ const AddItemsList = ({ itemDetails, backButten, addItemToList }) => {
 }
 
 const mapStateToProps = (state) => {
-  console.log(state)
   return { itemDetails: state.itemDetails }
 }
 const mapDispatchToProps = (dispatch) => {
