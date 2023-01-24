@@ -44,7 +44,7 @@ import img from '../assets/images/source.svg'
 import shopping_re from '../assets/images/undraw_gone_shopping_re_2lau.svg'
 import { AiFillDelete, AiOutlineDelete } from 'react-icons/ai'
 import { connect } from 'react-redux'
-import { ADD_ITEM_BUTTON,RENAME_LIST } from '../context/action'
+import { ADD_ITEM_BUTTON, RENAME_LIST } from '../context/action'
 
 const ShoppingList = ({
   shoopingList,
@@ -58,7 +58,12 @@ const ShoppingList = ({
 
   const { isOpen, onOpen, onClose } = useDisclosure()
   const [editListName, setEditListName] = useState(currentShoopingListName)
- 
+
+  const changeListName = () => {
+    setEditListName(editListName)
+    console.log(editListName)
+  }
+
   const amountChange = (a) => {
     a = amount <= 1 ? a == 1 : a
     return setAmount(amount + a)
@@ -105,26 +110,30 @@ const ShoppingList = ({
               <ModalCloseButton />
               <ModalBody pb={6}>
                 <FormControl my='4'>
-            <FormLabel>Name</FormLabel>
-            <Input
-              borderColor={'green.100'}
-              borderWidth='0.12em'
-              _focusVisible={{
-                borderColor: 'green.300',
-              }}
-              _hover={{
-                borderColor: 'green.300',
-              }}
-              type='text'
-              placeholder='Enter a name'
-              name='name'
-              value={editListName}
-              onChange={(e)=>setEditListName(e.target.value)}
-            />
-          </FormControl>
+                  <FormLabel>Name</FormLabel>
+                  <Input
+                    borderColor={'green.100'}
+                    borderWidth='0.12em'
+                    _focusVisible={{
+                      borderColor: 'green.300',
+                    }}
+                    _hover={{
+                      borderColor: 'green.300',
+                    }}
+                    type='text'
+                    placeholder='Enter a name'
+                    name='name'
+                    value={editListName}
+                    onChange={(e) => setEditListName(e.target.value)}
+                  />
+                </FormControl>
               </ModalBody>
               <ModalFooter>
-                <Button colorScheme='blue' mr={3} onClick={()=>renameShoppingList()}>
+                <Button
+                  colorScheme='blue'
+                  mr={3}
+                  onClick={() => changeListName()}
+                >
                   Save
                 </Button>
                 <Button onClick={onClose}>Cancel</Button>
