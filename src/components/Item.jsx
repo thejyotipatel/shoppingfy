@@ -2,10 +2,12 @@ import React from 'react'
 import { Wrap, WrapItem, Flex, Button, IconButton } from '@chakra-ui/react'
 import { AiOutlinePlus } from 'react-icons/ai'
 import { connect } from 'react-redux'
-import { DISPLAY_ITEM_DETAILS } from '../context/action'
+import {
+  DISPLAY_ITEM_DETAILS,
+  ADD_ITEM_TO_SHOPPING_LIST,
+} from '../context/action'
 
 const Item = ({ name, id, addItem, displayDetailOfItem }) => {
-  // const { listOfItems, addItemToList } = useAppContext()
   return (
     <WrapItem>
       <Flex
@@ -59,6 +61,8 @@ const mapDispatchToProps = (dispatch, ownProps) => {
   return {
     displayDetailOfItem: () =>
       dispatch({ type: DISPLAY_ITEM_DETAILS, payload: { id: ownProps.id } }),
+    addItem: (props) =>
+      dispatch({ type: ADD_ITEM_TO_SHOPPING_LIST, payload: { id: props } }),
   }
 }
 

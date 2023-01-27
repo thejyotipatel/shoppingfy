@@ -47,7 +47,7 @@ import { connect } from 'react-redux'
 import { ADD_ITEM_BUTTON, RENAME_LIST } from '../context/action'
 
 const ShoppingList = ({
-  shoopingList,
+  currentShoopingList,
   addItemBtn,
   currentShoopingListName,
   renameShoppingList,
@@ -60,8 +60,8 @@ const ShoppingList = ({
   const [editListName, setEditListName] = useState(currentShoopingListName)
 
   const changeListName = () => {
-    setEditListName(editListName)
-    console.log(editListName)
+    renameShoppingList(editListName)
+    onClose()
   }
 
   const amountChange = (a) => {
@@ -151,7 +151,7 @@ const ShoppingList = ({
         >
           Meat and fish
         </Text>
-        {shoopingList.length === 0 ? (
+        {currentShoopingList.length === 0 ? (
           <Image src={shopping_re} alt='shopping_re.avg' />
         ) : (
           <Flex
@@ -259,11 +259,11 @@ const ShoppingList = ({
 
 const mapStateToProps = (state) => {
   return {
-    shoopingList: state.shoopingList,
+    currentShoopingList: state.currentShoopingList,
     currentShoopingListName: state.currentShoopingListName,
   }
 }
-const mapDispatchToProps = (dispatch, ownProps) => {
+const mapDispatchToProps = (dispatch) => {
   return {
     addItemBtn: () => dispatch({ type: ADD_ITEM_BUTTON }),
     renameShoppingList: (props) =>

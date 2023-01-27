@@ -52,28 +52,27 @@ const DetailItem = ({ itemDetails, backButten, addItemToList, deleteItem }) => {
         minH={'fit-content'}
         position={'relative'}
       >
-        
         <Box w={'100%'} pb='4'>
-           <Button
-           mb='4'
-          onClick={() => backButten()}
-          width={'inherit'}
-          justifyContent={'left'}
-          alignItems='center'
-          display={'flex'}
-          color='green.500'
-          fontSize='1.2em'
-          gap={'1'}
-          w='fit-content'
-          variant={'unstyled'}
-          textAlign='left'
-          _hover={{
-            textDecoration: 'none',
-          }}
-        >
-          <Icon fontSize='1.5em' as={MdOutlineKeyboardBackspace} />
-          back
-        </Button>
+          <Button
+            mb='4'
+            onClick={() => backButten()}
+            width={'inherit'}
+            justifyContent={'left'}
+            alignItems='center'
+            display={'flex'}
+            color='green.500'
+            fontSize='1.2em'
+            gap={'1'}
+            w='fit-content'
+            variant={'unstyled'}
+            textAlign='left'
+            _hover={{
+              textDecoration: 'none',
+            }}
+          >
+            <Icon fontSize='1.5em' as={MdOutlineKeyboardBackspace} />
+            back
+          </Button>
           <Image src={image} alt='img' borderRadius={'2xl'} />
           <VStack w={'inherit'} py='4'>
             <Text
@@ -165,7 +164,7 @@ const DetailItem = ({ itemDetails, backButten, addItemToList, deleteItem }) => {
 const mapStateToProps = (state) => {
   return { itemDetails: state.itemDetails }
 }
-const mapDispatchToProps = (dispatch, ownProps) => {
+const mapDispatchToProps = (dispatch) => {
   // console.log(state)
   return {
     backButten: () => dispatch({ type: BACK_BUTTEN }),

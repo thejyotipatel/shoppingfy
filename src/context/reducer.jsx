@@ -77,7 +77,6 @@ const reducer = (state, action) => {
   if (action.type === ADD_ITEM_TO_LIST) {
     let tempItem = action.payload.item
     tempItem.id = new Date().getUTCMilliseconds()
-    // console.log(action.payload.item)
 
     return {
       ...state,
@@ -90,12 +89,16 @@ const reducer = (state, action) => {
       alertText: 'Item is added!',
     }
   }
-  if (action.type === ADD_ITEM_TO_SHOPPING_LIST) {
-    //  let tempList = state.list.filter(
-      //  (listItem) => listItem.id !== state.itemDetails[0].id
-    //  )
+  if (action.type ===  ) {
+    let tempItem = state.list.filter(
+      (listItem) => listItem.id === action.payload.id
+    )
     return {
       ...state,
+      currentShoopingList: [...currentShoopingList, tempItem],
+      showAlert: true,
+      alertType: 'success',
+      alertText: 'Item is added!',
     }
   }
   if (action.type === CANCLE_LIST) {
@@ -112,6 +115,9 @@ const reducer = (state, action) => {
     return {
       ...state,
       currentShoopingListName: action.payload.listName,
+      showAlert: true,
+      alertType: 'success',
+      alertText: 'Current list name changed successfully!',
     }
   }
   return state
