@@ -89,13 +89,13 @@ const reducer = (state, action) => {
       alertText: 'Item is added!',
     }
   }
-  if (action.type ===  ) {
+  if (action.type === ADD_ITEM_TO_SHOPPING_LIST) {
     let tempItem = state.list.filter(
       (listItem) => listItem.id === action.payload.id
     )
     return {
       ...state,
-      currentShoopingList: [...currentShoopingList, tempItem],
+      currentShoopingList: [...state.currentShoopingList, tempItem],
       showAlert: true,
       alertType: 'success',
       alertText: 'Item is added!',
