@@ -44,13 +44,19 @@ import img from '../assets/images/source.svg'
 import shopping_re from '../assets/images/undraw_gone_shopping_re_2lau.svg'
 import { AiFillDelete, AiOutlineDelete } from 'react-icons/ai'
 import { connect } from 'react-redux'
-import { ADD_ITEM_BUTTON, RENAME_LIST } from '../context/action'
+import {
+  ADD_ITEM_BUTTON,
+  RENAME_LIST,CANCEL_LIST,
+  DELETE_ITEM_FROM_SHOPPING_LIST,
+} from '../context/action'
 
 const ShoppingList = ({
   currentShoopingList,
   addItemBtn,
   currentShoopingListName,
   renameShoppingList,
+  deleteBtn,
+  cancelList
 }) => {
   const [toogle, setToogle] = useBoolean()
   const [toogleAmount, setToogleAmount] = useBoolean()
@@ -154,72 +160,79 @@ const ShoppingList = ({
         {currentShoopingList.length === 0 ? (
           <Image src={shopping_re} alt='shopping_re.avg' />
         ) : (
-          <Flex
-            key={list[0]?.id}
-            width={'100%'}
-            justifyContent={'space-between'}
-            alignItems='center'
-          >
-            {toogle && (
-              <Checkbox
-                colorScheme='green'
-                size={'lg'}
-                borderColor='green.300'
-                onChange={() => setCompleteItem(list?.id)}
-              ></Checkbox>
-            )}
-            <Button
-              variant={'unstyled'}
-              textDecoration={list?.completed ? 'line-through' : 'none'}
-              fontSize='18px'
-              textTransform='capitalize'
-              onClick={setToogle.toggle}
-            >
-              {list[0]?.name}
-            </Button>
+          <>
+            {currentShoopingList.map((item) => {
+              const { id, name } = item[0]
+              return (
+                <Flex
+                  key={id}
+                  width={'100%'}
+                  justifyContent={'space-between'}
+                  alignItems='center'
+                >
+                  {/* {toogle && (
+                    <Checkbox
+                      colorScheme='green'
+                      size={'lg'}
+                      borderColor='green.300'
+                      onChange={() => setCompleteItem(id)}
+                    ></Checkbox>
+                  )} */}
+                  <Button
+                    variant={'unstyled'}
+                    // textDecoration={list?.completed ? 'line-through' : 'none'}
+                    fontSize='18px'
+                    textTransform='capitalize'
+                    onClick={setToogle.toggle}
+                  >
+                    {name}
+                  </Button>
 
-            {toogle && (
-              <IconButton
-                variant={'unstyled'}
-                color={'red'}
-                fontSize={'2xl'}
-                my={2}
-                icon={<AiFillDelete />}
-                onClick={() => deleteItemToList(list[0]?.id)}
-              />
-            )}
+                  {toogle && (
+                    <IconButton
+                      variant={'unstyled'}
+                      color={'red'}
+                      fontSize={'2xl'}
+                      my={2}
+                      icon={<AiFillDelete />}
+                      onClick={() => deleteBtn(id)}
+                    />
+                  )}
 
-            <Flex alignItems={'center'}>
-              {toogleAmount && (
-                <IconButton
-                  colorScheme={'green'}
-                  backgroundColor={'green.500'}
-                  color={'gray.50'}
-                  size='sm'
-                  icon={<HiMinus />}
-                  onClick={() => amountChange(-1)}
-                />
-              )}
-              <Button
-                variant={'unstyled'}
-                color='green'
-                p={'0.5em'}
-                onClick={setToogleAmount.toggle}
-              >
-                {amount} pcs
-              </Button>
-              {toogleAmount && (
-                <IconButton
-                  colorScheme={'green'}
-                  backgroundColor={'green.500'}
-                  color={'gray.50'}
-                  size='sm'
-                  icon={<HiPlus />}
-                  onClick={() => amountChange(1)}
-                />
-              )}
-            </Flex>
-          </Flex>
+                  <Flex alignItems={'center'}>
+                    {toogleAmount && (
+                      <IconButton
+                        colorScheme={'green'}
+                        backgroundColor={'green.500'}
+                        color={'gray.50'}
+                        size='sm'
+                        icon={<HiMinus />}
+                        onClick={() => amountChange(-1)}
+                      />
+                    )}
+                    <Button
+                      variant={'unstyled'}
+                      color='green'
+                      p={'0.5em'}
+                      onClick={setToogleAmount.toggle}
+                    >
+                      {amount} pcs
+                    </Button>
+                    {toogleAmount && (
+                      <IconButton
+                        colorScheme={'green'}
+                        backgroundColor={'green.500'}
+                        color={'gray.50'}
+                        size='sm'
+                        icon={<HiPlus />}
+                        onClick={() => amountChange(1)}
+                      />
+                    )}
+                  </Flex>
+                </Flex>
+              )
+            })}
+          </>
         )}
 
         <Flex
@@ -236,6 +249,7 @@ const ShoppingList = ({
             py={'5'}
             fontSize={'xl'}
             fontWeight={'bold'}
+            onClick={() => cancelList()}
           >
             Cancel list
           </Button>
@@ -265,9 +279,15 @@ const mapStateToProps = (state) => {
 }
 const mapDispatchToProps = (dispatch) => {
   return {
-    addItemBtn: () => dispatch({ type: ADD_ITEM_BUTTON }),
     renameShoppingList: (props) =>
       dispatch({ type: RENAME_LIST, payload: { listName: props } }),
+    addItemBtn: () => dispatch({ type: ADD_ITEM_BUTTON }),
+    deleteBtn: (props) =>
+    dispatch({
+      type: DELETE_ITEM_FROM_SHOPPING_LIST,
+      payload: { id: props },
+    }),
+    cancelList: () => dispatch({ type: CANCEL_LIST }),
   }
 }
 

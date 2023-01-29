@@ -11,7 +11,7 @@ const initialStore = {
   searchQuery: '',
   itemDetails: null,
   currentShoopingList: [],
-  currentShoopingListName: 'Shooping List',
+  currentShoopingListName: 'Grocery List',
   detailBox: false,
   addItemBox: false,
   listsBox: true,

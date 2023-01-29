@@ -8,10 +8,11 @@ import {
   BACK_BUTTEN,
   ADD_ITEM_TO_SHOPPING_LIST,
   SET_COMPLETE_ITEM,
-  CANCLE_LIST,
+  CANCEL_LIST,
   CHECK_ALREADY_PRESENT_ITEM,
   RENAME_LIST,
   SET_COMPLETE_LIST,
+  DELETE_ITEM_FROM_SHOPPING_LIST,
 } from './action'
 
 const reducer = (state, action) => {
@@ -90,20 +91,48 @@ const reducer = (state, action) => {
     }
   }
   if (action.type === ADD_ITEM_TO_SHOPPING_LIST) {
-    let tempItem = state.list.filter(
-      (listItem) => listItem.id === action.payload.id
-    )
+    let tempSameItem = state.currentShoopingList.length === 0? [] :state.currentShoopingList.filter(
+      (listItem) => listItem.id === action.payload.id )
+let list = null
+    if(state.currentShoopingList.length === 0 ||  tempSameItem.length === 0){
+      let tempItem = state.list.filter(
+        (listItem) => listItem.id === action.payload.id
+      )
+     let list = [...state.currentShoopingList, tempItem]
+    }else{
+      let list = state.currentShoopingList
+    }
+       
     return {
       ...state,
-      currentShoopingList: [...state.currentShoopingList, tempItem],
+      currentShoopingList: list,
+      detailBox: false,
+      addItemBox: false,
+      listsBox: true,
       showAlert: true,
       alertType: 'success',
       alertText: 'Item is added!',
     }
   }
-  if (action.type === CANCLE_LIST) {
+  if (action.type === DELETE_ITEM_FROM_SHOPPING_LIST) {
+    let tempList = state.currentShoopingList.filter(
+      (listItem) => listItem[0].id !== action.payload.id
+    )
     return {
       ...state,
+      currentShoopingList: tempList,
+      showAlert: true,
+      alertType: 'warning',
+      alertText: 'Item is deleted!',
+    }
+  }
+  if (action.type === CANCEL_LIST) {
+    return {
+      ...state,
+      currentShoopingList: [],
+      showAlert: true,
+      alertType: 'warning',
+      alertText: 'List is canceled!',
     }
   }
   if (action.type === SET_COMPLETE_LIST) {

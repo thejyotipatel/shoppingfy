@@ -36,10 +36,10 @@ import { connect } from 'react-redux'
 import {
   BACK_BUTTEN,
   ADD_ITEM_TO_LIST,
-  DELETE_ITEM_FROM_LIST,
+  DELETE_ITEM_FROM_LIST,ADD_ITEM_TO_SHOPPING_LIST,
 } from '../context/action'
 
-const DetailItem = ({ itemDetails, backButten, addItemToList, deleteItem }) => {
+const DetailItem = ({ itemDetails, backButten, addItemToList, deleteItem,addItem }) => {
   const { category, id, image, name, note } = itemDetails[0]
 
   return (
@@ -151,7 +151,7 @@ const DetailItem = ({ itemDetails, backButten, addItemToList, deleteItem }) => {
             borderRadius={0}
             fontSize={'xl'}
             fontWeight={'bold'}
-            // onClick={() => addItemToList()}
+            onClick={() => addItem(id)}
           >
             Add to list
           </Button>
@@ -168,11 +168,8 @@ const mapDispatchToProps = (dispatch) => {
   // console.log(state)
   return {
     backButten: () => dispatch({ type: BACK_BUTTEN }),
-    // addItemToList: () =>
-    //   dispatch({
-    //     type: ADD_ITEM_TO_LIST,
-    //     payload: { id: ownProps.ItemDetails[0].id },
-    //   }),
+   addItem: (props) =>
+      dispatch({ type: ADD_ITEM_TO_SHOPPING_LIST, payload: { id: props } }),
     deleteItem: () =>
       dispatch({
         type: DELETE_ITEM_FROM_LIST,
