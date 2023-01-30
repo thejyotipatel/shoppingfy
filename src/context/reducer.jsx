@@ -91,18 +91,29 @@ const reducer = (state, action) => {
     }
   }
   if (action.type === ADD_ITEM_TO_SHOPPING_LIST) {
-    let tempSameItem = state.currentShoopingList.length === 0? [] :state.currentShoopingList.filter(
-      (listItem) => listItem.id === action.payload.id )
-let list = null
-    if(state.currentShoopingList.length === 0 ||  tempSameItem.length === 0){
+    let tempSameItem =
+      state.currentShoopingList.length === 0
+        ? []
+        : state.currentShoopingList.filter(
+            (listItem) => listItem[0].id === action.payload.id
+          )
+
+    let list = null
+    let alertType = ''
+    let alertText = ''
+    if (state.currentShoopingList.length === 0 || tempSameItem.length === 0) {
       let tempItem = state.list.filter(
         (listItem) => listItem.id === action.payload.id
       )
-     let list = [...state.currentShoopingList, tempItem]
-    }else{
-      let list = state.currentShoopingList
+      list = [...state.currentShoopingList, tempItem]
+      alertType = 'success'
+      alertText = 'Item is added!'
+    } else {
+      list = state.currentShoopingList
+      alertType = 'warning'
+      alertText = 'Item is already added!'
     }
-       
+
     return {
       ...state,
       currentShoopingList: list,
@@ -110,8 +121,8 @@ let list = null
       addItemBox: false,
       listsBox: true,
       showAlert: true,
-      alertType: 'success',
-      alertText: 'Item is added!',
+      alertType: alertType,
+      alertText: alertText,
     }
   }
   if (action.type === DELETE_ITEM_FROM_SHOPPING_LIST) {
@@ -130,6 +141,7 @@ let list = null
     return {
       ...state,
       currentShoopingList: [],
+      currentShoopingListName: 'Grocery List',
       showAlert: true,
       alertType: 'warning',
       alertText: 'List is canceled!',

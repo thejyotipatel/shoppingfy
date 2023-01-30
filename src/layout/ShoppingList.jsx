@@ -44,9 +44,11 @@ import img from '../assets/images/source.svg'
 import shopping_re from '../assets/images/undraw_gone_shopping_re_2lau.svg'
 import { AiFillDelete, AiOutlineDelete } from 'react-icons/ai'
 import { connect } from 'react-redux'
+import CompleteBtn from '../components/CompleteBtn'
 import {
   ADD_ITEM_BUTTON,
-  RENAME_LIST,CANCEL_LIST,
+  RENAME_LIST,
+  CANCEL_LIST,
   DELETE_ITEM_FROM_SHOPPING_LIST,
 } from '../context/action'
 
@@ -56,7 +58,7 @@ const ShoppingList = ({
   currentShoopingListName,
   renameShoppingList,
   deleteBtn,
-  cancelList
+  cancelList,
 }) => {
   const [toogle, setToogle] = useBoolean()
   const [toogleAmount, setToogleAmount] = useBoolean()
@@ -234,38 +236,7 @@ const ShoppingList = ({
             })}
           </>
         )}
-
-        <Flex
-          position={'absolute'}
-          bottom='0'
-          width={'inherit'}
-          justifyContent='space-evenly'
-          bgColor={'gray.50'}
-        >
-          <Button
-            width='100%'
-            variant={'unstyled'}
-            color={'gray.400'}
-            py={'5'}
-            fontSize={'xl'}
-            fontWeight={'bold'}
-            onClick={() => cancelList()}
-          >
-            Cancel list
-          </Button>
-          <Button
-            height={'100%'}
-            py={'5'}
-            width='100%'
-            variant={'solid'}
-            colorScheme='green'
-            borderRadius={0}
-            fontSize={'xl'}
-            fontWeight={'bold'}
-          >
-            Completed list
-          </Button>
-        </Flex>
+        <CompleteBtn />
       </VStack>
     </>
   )
@@ -283,10 +254,10 @@ const mapDispatchToProps = (dispatch) => {
       dispatch({ type: RENAME_LIST, payload: { listName: props } }),
     addItemBtn: () => dispatch({ type: ADD_ITEM_BUTTON }),
     deleteBtn: (props) =>
-    dispatch({
-      type: DELETE_ITEM_FROM_SHOPPING_LIST,
-      payload: { id: props },
-    }),
+      dispatch({
+        type: DELETE_ITEM_FROM_SHOPPING_LIST,
+        payload: { id: props },
+      }),
     cancelList: () => dispatch({ type: CANCEL_LIST }),
   }
 }
