@@ -13,6 +13,7 @@ import {
   RENAME_LIST,
   SET_COMPLETE_LIST,
   DELETE_ITEM_FROM_SHOPPING_LIST,
+  DELETE_TOGGLE,
 } from './action'
 
 const reducer = (state, action) => {
@@ -78,6 +79,7 @@ const reducer = (state, action) => {
   if (action.type === ADD_ITEM_TO_LIST) {
     let tempItem = action.payload.item
     tempItem.id = new Date().getUTCMilliseconds()
+    tempItem.showDeleteBtn = false
 
     return {
       ...state,
@@ -123,6 +125,18 @@ const reducer = (state, action) => {
       showAlert: true,
       alertType: alertType,
       alertText: alertText,
+    }
+  }
+  if (action.type === DELETE_TOGGLE) {
+    let tempList = state.currentShoopingList.filter((listItem) =>
+      listItem[0].id === action.payload.id
+        ? (listItem[0].showDeleteBtn = true)
+        : (listItem[0].showDeleteBtn = false)
+    )
+    // console.log(tempList)
+    return {
+      ...state,
+      // currentShoopingList: tempList,
     }
   }
   if (action.type === DELETE_ITEM_FROM_SHOPPING_LIST) {

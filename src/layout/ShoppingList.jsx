@@ -50,6 +50,7 @@ import {
   RENAME_LIST,
   CANCEL_LIST,
   DELETE_ITEM_FROM_SHOPPING_LIST,
+  DELETE_TOGGLE,
 } from '../context/action'
 
 const ShoppingList = ({
@@ -58,7 +59,7 @@ const ShoppingList = ({
   currentShoopingListName,
   renameShoppingList,
   deleteBtn,
-  cancelList,
+  deleteItemBtn,
 }) => {
   const [toogle, setToogle] = useBoolean()
   const [toogleAmount, setToogleAmount] = useBoolean()
@@ -164,7 +165,7 @@ const ShoppingList = ({
         ) : (
           <>
             {currentShoopingList.map((item) => {
-              const { id, name } = item[0]
+              const { id, name, showDeleteBtn } = item[0]
               return (
                 <Flex
                   key={id}
@@ -185,12 +186,12 @@ const ShoppingList = ({
                     // textDecoration={list?.completed ? 'line-through' : 'none'}
                     fontSize='18px'
                     textTransform='capitalize'
-                    onClick={setToogle.toggle}
+                    onClick={() => deleteItemBtn(id)}
                   >
                     {name}
                   </Button>
 
-                  {toogle && (
+                  {showDeleteBtn && (
                     <IconButton
                       variant={'unstyled'}
                       color={'red'}
@@ -253,12 +254,13 @@ const mapDispatchToProps = (dispatch) => {
     renameShoppingList: (props) =>
       dispatch({ type: RENAME_LIST, payload: { listName: props } }),
     addItemBtn: () => dispatch({ type: ADD_ITEM_BUTTON }),
+    deleteItemBtn: (props) =>
+      dispatch({ type: DELETE_TOGGLE, payload: { id: props } }),
     deleteBtn: (props) =>
       dispatch({
         type: DELETE_ITEM_FROM_SHOPPING_LIST,
         payload: { id: props },
       }),
-    cancelList: () => dispatch({ type: CANCEL_LIST }),
   }
 }
 

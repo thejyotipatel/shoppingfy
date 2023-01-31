@@ -49,7 +49,6 @@ const Item = ({ name, id, addItem, displayDetailOfItem }) => {
             color: 'gray.100',
           }}
           onClick={() => addItem(id)}
-          // onClick={() => addItemToList(id)}
           icon={<AiOutlinePlus />}
         />
       </Flex>

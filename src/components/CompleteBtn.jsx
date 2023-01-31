@@ -37,6 +37,12 @@ import {
   ModalBody,
   ModalCloseButton,
   useBoolean,
+  AlertDialog,
+  AlertDialogBody,
+  AlertDialogFooter,
+  AlertDialogHeader,
+  AlertDialogContent,
+  AlertDialogOverlay,
 } from '@chakra-ui/react'
 import { connect } from 'react-redux'
 import { CANCEL_LIST } from '../context/action'
@@ -44,6 +50,10 @@ import { CANCEL_LIST } from '../context/action'
 const CompleteBtn = ({ cancelList }) => {
   const { isOpen, onOpen, onClose } = useDisclosure()
 
+  const cancelListOnDeleteBtn = () => {
+    cancelList()
+    onClose()
+  }
   return (
     <Flex
       position={'absolute'}
@@ -60,10 +70,34 @@ const CompleteBtn = ({ cancelList }) => {
         fontSize={'xl'}
         fontWeight={'bold'}
         onClick={onOpen}
-        // onClick={() => cancelList()}
       >
-        Cancel list
+        Cancel List
       </Button>
+      <AlertDialog isOpen={isOpen} onClose={onClose}>
+        <AlertDialogOverlay>
+          <AlertDialogContent>
+            <AlertDialogHeader fontSize='lg' fontWeight='bold'>
+              Cancel List
+            </AlertDialogHeader>
+
+            <AlertDialogBody>
+              Are you sure? You can't undo this action afterwards.
+            </AlertDialogBody>
+
+            <AlertDialogFooter>
+              <Button onClick={onClose}>Cancel</Button>
+              <Button
+                colorScheme='red'
+                onClick={() => cancelListOnDeleteBtn()}
+                ml={3}
+              >
+                Delete
+              </Button>
+            </AlertDialogFooter>
+          </AlertDialogContent>
+        </AlertDialogOverlay>
+      </AlertDialog>
+
       <Button
         height={'100%'}
         py={'5'}
@@ -76,43 +110,6 @@ const CompleteBtn = ({ cancelList }) => {
       >
         Completed list
       </Button>
-      <Modal isOpen={isOpen} onClose={onClose}>
-        <ModalOverlay />
-        <ModalContent>
-          <ModalHeader>Create your account</ModalHeader>
-          <ModalCloseButton />
-          <ModalBody pb={6}>
-            <FormControl my='4'>
-              <FormLabel>Name</FormLabel>
-              <Input
-                borderColor={'green.100'}
-                borderWidth='0.12em'
-                _focusVisible={{
-                  borderColor: 'green.300',
-                }}
-                _hover={{
-                  borderColor: 'green.300',
-                }}
-                type='text'
-                placeholder='Enter a name'
-                name='name'
-                // value={editListName}
-                // onChange={(e) => setEditListName(e.target.value)}
-              />
-            </FormControl>
-          </ModalBody>
-          <ModalFooter>
-            <Button
-              colorScheme='blue'
-              mr={3}
-              // onClick={() => changeListName()}
-            >
-              Save
-            </Button>
-            <Button onClick={onClose}>Cancel</Button>
-          </ModalFooter>
-        </ModalContent>
-      </Modal>
     </Flex>
   )
 }
