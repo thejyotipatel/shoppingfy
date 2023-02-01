@@ -164,8 +164,9 @@ const ShoppingList = ({
           <Image src={shopping_re} alt='shopping_re.avg' />
         ) : (
           <>
-            {/* {currentShoopingList.map((item) => {
-              const { id, name, showDeleteBtn } = item
+            {currentShoopingList.map((item) => {
+              const { id, name, showDeleteBtn } = item[0]
+              // console.log(item)
               return (
                 <Flex
                   key={id}
@@ -181,12 +182,11 @@ const ShoppingList = ({
                       onChange={() => setCompleteItem(id)}
                     ></Checkbox>
                   )} */}
-                  {/* <Button */}
-                    {/* variant={'unstyled'} */}
-                    {/* // textDecoration={list?.completed ? 'line-through' : 'none'} */}
-                    {/* fontSize='18px'
+                     {/* textDecoration={list?.completed ? 'line-through' : 'none'} */}
+                  <Button
+                    variant={'unstyled'}
+                     fontSize='18px'
                     textTransform='capitalize'
-                    // onClick={() => setToogleDeleteBtn(!toogleDeleteBtn)}
                     onClick={() => deleteItemBtn(id)}
                   >
                     {name}
@@ -233,9 +233,9 @@ const ShoppingList = ({
                       />
                     )}
                   </Flex>
-                </Flex> */}
-               {/* )
-             })} */}
+                </Flex> 
+                )
+             })}
           </>
         )}
         <CompleteBtn />

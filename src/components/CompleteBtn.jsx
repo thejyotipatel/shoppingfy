@@ -45,9 +45,9 @@ import {
   AlertDialogOverlay,
 } from '@chakra-ui/react'
 import { connect } from 'react-redux'
-import { CANCEL_LIST } from '../context/action'
+import { CANCEL_LIST,SET_COMPLETE_LIST } from '../context/action'
 
-const CompleteBtn = ({ cancelList }) => {
+const CompleteBtn = ({ cancelList,completeList }) => {
   const { isOpen, onOpen, onClose } = useDisclosure()
 
   const cancelListOnDeleteBtn = () => {
@@ -107,6 +107,7 @@ const CompleteBtn = ({ cancelList }) => {
         borderRadius={0}
         fontSize={'xl'}
         fontWeight={'bold'}
+        onClick={() => completeList()}
       >
         Completed list
       </Button>
@@ -117,6 +118,7 @@ const CompleteBtn = ({ cancelList }) => {
 const mapDispatchToProps = (dispatch) => {
   return {
     cancelList: () => dispatch({ type: CANCEL_LIST }),
+    completeList: () => dispatch({ type: SET_COMPLETE_LIST }),
   }
 }
 export default connect(null, mapDispatchToProps)(CompleteBtn)

@@ -77,11 +77,11 @@ const reducer = (state, action) => {
     }
   }
   if (action.type === ADD_ITEM_TO_LIST) {
-    let tempItem = {...action.payload.item, id:  new Date().getUTCMilliseconds(), showDeleteBtn: false}
-    // tempItem.id = new Date().getUTCMilliseconds()
-    // tempItem.showDeleteBtn = false
-    // console.log(state.list)
-
+    let tempItem = {
+      ...action.payload.item,
+      id: new Date().getUTCMilliseconds(),
+      showDeleteBtn: false,
+    }
     return {
       ...state,
       list: [...state.list, tempItem],
@@ -94,35 +94,29 @@ const reducer = (state, action) => {
     }
   }
   if (action.type === ADD_ITEM_TO_SHOPPING_LIST) {
-    let tempSameItem = []
-      // state.currentShoopingList.length === 0
-      //   ? []
-      //   : state.currentShoopingList.filter(
-      //       (listItem) => listItem[0].id === action.payload.id
-      //     )
-
-    let list = null
+    let tempList = null
+    
+    let tempSameItem =
+    state.currentShoopingList.length === 0
+    ? []
+    : state.currentShoopingList.filter((listItem) => listItem[0].id === action.payload.id)
+    
     let alertType = ''
     let alertText = ''
+
     if (state.currentShoopingList.length === 0 || tempSameItem.length === 0) {
-        let tempList = state.list.filter(
-        (listItem) => listItem.id === action.payload.id
-      )
-      // list = [...state.currentShoopingList, tempItem]
-      // console.log(tempList)
-      // console.log(list)
-   list= state.currentShoopingList.push(tempList)
+     tempList = state.list.filter((listItem) =>
+        listItem.id === action.payload.id 
+      ) 
       alertType = 'success'
       alertText = 'Item is added!'
     } else {
-      list = state.currentShoopingList
       alertType = 'warning'
       alertText = 'Item is already added!'
     }
-console.log(list)
     return {
       ...state,
-      // currentShoopingList:  list,
+      currentShoopingList: tempList === null?state.currentShoopingList:[...state.currentShoopingList,tempList ],
       detailBox: false,
       addItemBox: false,
       listsBox: true,
@@ -134,24 +128,14 @@ console.log(list)
   if (action.type === DELETE_TOGGLE) {
     let tempList = state.currentShoopingList.map(
       (listItem) => {
-        console.log(listItem.id)
         if (listItem[0].id === action.payload.id) {
-          return { ...listItem, showDeleteBtn: !listItem[0].showDeleteBtn }
+           listItem[0].showDeleteBtn= !listItem[0].showDeleteBtn 
+        }else{
+          listItem[0].showDeleteBtn= false
         }
         return listItem
       }
-      // listItem[0].id === action.payload.id
-      // : (listItem[0].showDeleteBtn = false)
-      // ? (listItem[0].showDeleteBtn = true)
-      // console.log(listItem)
-    )
-    // const newCompl = todos.map((item) => {
-    //   if (item.id === id) {
-    //     return { ...item, compleated: !item.compleated }
-    //   }
-    //   return item
-    // })
-    console.log(tempList)
+   )
     return {
       ...state,
       currentShoopingList: tempList,
@@ -170,8 +154,12 @@ console.log(list)
     }
   }
   if (action.type === CANCEL_LIST) {
+    let list = {
+      list:state.currentShoopingList, id: new Date().getUTCMilliseconds(), shoppingListName: state.currentShoopingListName,status: 'Canceled'
+    }
     return {
       ...state,
+      shoopingLists: [...state.shoopingLists, list],
       currentShoopingList: [],
       currentShoopingListName: 'Grocery List',
       showAlert: true,
@@ -180,8 +168,19 @@ console.log(list)
     }
   }
   if (action.type === SET_COMPLETE_LIST) {
+    let list = {
+      list:state.currentShoopingList, id: new Date().getUTCMilliseconds(), shoppingListName: state.currentShoopingListName,status: 'Completed'
+    }
+    // console.log(state.shoopingLists)
+    // console.log(list)
     return {
       ...state,
+      shoopingLists: [...state.shoopingLists, list],
+      currentShoopingList: [],
+      currentShoopingListName: 'Grocery List',
+      showAlert: true,
+      alertType: 'warning',
+      alertText: 'List is completed!',
     }
   }
   if (action.type === RENAME_LIST) {

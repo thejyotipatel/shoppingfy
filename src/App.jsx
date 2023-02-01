@@ -12,6 +12,7 @@ const initialStore = {
   itemDetails: null,
   currentShoopingList: [],
   currentShoopingListName: 'Grocery List',
+  shoopingLists: [],
   detailBox: false,
   addItemBox: false,
   listsBox: true,
