@@ -77,13 +77,14 @@ const reducer = (state, action) => {
     }
   }
   if (action.type === ADD_ITEM_TO_LIST) {
-    let tempItem = action.payload.item
-    tempItem.id = new Date().getUTCMilliseconds()
-    tempItem.showDeleteBtn = false
+    let tempItem = {...action.payload.item, id:  new Date().getUTCMilliseconds(), showDeleteBtn: false}
+    // tempItem.id = new Date().getUTCMilliseconds()
+    // tempItem.showDeleteBtn = false
+    // console.log(state.list)
 
     return {
       ...state,
-      list: [...state.list, action.payload.item],
+      list: [...state.list, tempItem],
       detailBox: false,
       addItemBox: true,
       listsBox: false,
@@ -93,21 +94,24 @@ const reducer = (state, action) => {
     }
   }
   if (action.type === ADD_ITEM_TO_SHOPPING_LIST) {
-    let tempSameItem =
-      state.currentShoopingList.length === 0
-        ? []
-        : state.currentShoopingList.filter(
-            (listItem) => listItem[0].id === action.payload.id
-          )
+    let tempSameItem = []
+      // state.currentShoopingList.length === 0
+      //   ? []
+      //   : state.currentShoopingList.filter(
+      //       (listItem) => listItem[0].id === action.payload.id
+      //     )
 
     let list = null
     let alertType = ''
     let alertText = ''
     if (state.currentShoopingList.length === 0 || tempSameItem.length === 0) {
-      let tempItem = state.list.filter(
+        let tempList = state.list.filter(
         (listItem) => listItem.id === action.payload.id
       )
-      list = [...state.currentShoopingList, tempItem]
+      // list = [...state.currentShoopingList, tempItem]
+      // console.log(tempList)
+      // console.log(list)
+   list= state.currentShoopingList.push(tempList)
       alertType = 'success'
       alertText = 'Item is added!'
     } else {
@@ -115,10 +119,10 @@ const reducer = (state, action) => {
       alertType = 'warning'
       alertText = 'Item is already added!'
     }
-
+console.log(list)
     return {
       ...state,
-      currentShoopingList: list,
+      // currentShoopingList:  list,
       detailBox: false,
       addItemBox: false,
       listsBox: true,
@@ -128,15 +132,29 @@ const reducer = (state, action) => {
     }
   }
   if (action.type === DELETE_TOGGLE) {
-    let tempList = state.currentShoopingList.filter((listItem) =>
-      listItem[0].id === action.payload.id
-        ? (listItem[0].showDeleteBtn = true)
-        : (listItem[0].showDeleteBtn = false)
+    let tempList = state.currentShoopingList.map(
+      (listItem) => {
+        console.log(listItem.id)
+        if (listItem[0].id === action.payload.id) {
+          return { ...listItem, showDeleteBtn: !listItem[0].showDeleteBtn }
+        }
+        return listItem
+      }
+      // listItem[0].id === action.payload.id
+      // : (listItem[0].showDeleteBtn = false)
+      // ? (listItem[0].showDeleteBtn = true)
+      // console.log(listItem)
     )
-    // console.log(tempList)
+    // const newCompl = todos.map((item) => {
+    //   if (item.id === id) {
+    //     return { ...item, compleated: !item.compleated }
+    //   }
+    //   return item
+    // })
+    console.log(tempList)
     return {
       ...state,
-      // currentShoopingList: tempList,
+      currentShoopingList: tempList,
     }
   }
   if (action.type === DELETE_ITEM_FROM_SHOPPING_LIST) {

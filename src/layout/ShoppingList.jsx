@@ -61,8 +61,8 @@ const ShoppingList = ({
   deleteBtn,
   deleteItemBtn,
 }) => {
-  const [toogle, setToogle] = useBoolean()
-  const [toogleAmount, setToogleAmount] = useBoolean()
+  const [toogleDeleteBtn, setToogleDeleteBtn] = useBoolean()
+  const [toogleAmount, setToogleAmount] = useState(false)
   const [amount, setAmount] = useState(1)
 
   const { isOpen, onOpen, onClose } = useDisclosure()
@@ -164,8 +164,8 @@ const ShoppingList = ({
           <Image src={shopping_re} alt='shopping_re.avg' />
         ) : (
           <>
-            {currentShoopingList.map((item) => {
-              const { id, name, showDeleteBtn } = item[0]
+            {/* {currentShoopingList.map((item) => {
+              const { id, name, showDeleteBtn } = item
               return (
                 <Flex
                   key={id}
@@ -181,11 +181,12 @@ const ShoppingList = ({
                       onChange={() => setCompleteItem(id)}
                     ></Checkbox>
                   )} */}
-                  <Button
-                    variant={'unstyled'}
-                    // textDecoration={list?.completed ? 'line-through' : 'none'}
-                    fontSize='18px'
+                  {/* <Button */}
+                    {/* variant={'unstyled'} */}
+                    {/* // textDecoration={list?.completed ? 'line-through' : 'none'} */}
+                    {/* fontSize='18px'
                     textTransform='capitalize'
+                    // onClick={() => setToogleDeleteBtn(!toogleDeleteBtn)}
                     onClick={() => deleteItemBtn(id)}
                   >
                     {name}
@@ -232,9 +233,9 @@ const ShoppingList = ({
                       />
                     )}
                   </Flex>
-                </Flex>
-              )
-            })}
+                </Flex> */}
+               {/* )
+             })} */}
           </>
         )}
         <CompleteBtn />
