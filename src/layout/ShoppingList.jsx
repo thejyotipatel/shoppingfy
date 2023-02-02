@@ -61,8 +61,8 @@ const ShoppingList = ({
   deleteBtn,
   deleteItemBtn,
 }) => {
-  const [toogleDeleteBtn, setToogleDeleteBtn] = useBoolean()
-  const [toogleAmount, setToogleAmount] = useState(false)
+  // const [toogleDeleteBtn, setToogleDeleteBtn] = useBoolean()
+  const [toogleAmount, setToogleAmount] = useBoolean()
   const [amount, setAmount] = useState(1)
 
   const { isOpen, onOpen, onClose } = useDisclosure()

@@ -38,7 +38,7 @@ import { MdOutlineKeyboardBackspace } from 'react-icons/md'
 import { useState } from 'react'
 
 import { connect } from 'react-redux'
-import { BACK_BUTTEN, ADD_ITEM_TO_LIST } from '../context/action'
+import { BACK_BUTTEN, ADD_ITEM_TO_LIST, backBtn } from '../context/action'
 
 const initalState = {
   name: '',
@@ -198,7 +198,7 @@ const mapStateToProps = (state) => {
 }
 const mapDispatchToProps = (dispatch) => {
   return {
-    backButten: () => dispatch({ type: BACK_BUTTEN }),
+    backButten: () => dispatch(backBtn()),
     addItemToList: (props) =>
       dispatch({ type: ADD_ITEM_TO_LIST, payload: { item: props } }),
   }

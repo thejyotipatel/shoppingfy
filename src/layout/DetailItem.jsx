@@ -36,7 +36,7 @@ import { connect } from 'react-redux'
 import {
   BACK_BUTTEN,
   ADD_ITEM_TO_LIST,
-  DELETE_ITEM_FROM_LIST,ADD_ITEM_TO_SHOPPING_LIST,
+  DELETE_ITEM_FROM_LIST,ADD_ITEM_TO_SHOPPING_LIST,backBtn,addItem
 } from '../context/action'
 
 const DetailItem = ({ itemDetails, backButten, addItemToList, deleteItem,addItem }) => {
@@ -167,9 +167,9 @@ const mapStateToProps = (state) => {
 const mapDispatchToProps = (dispatch) => {
   // console.log(state)
   return {
-    backButten: () => dispatch({ type: BACK_BUTTEN }),
+    backButten: () => dispatch(backBtn),
    addItem: (props) =>
-      dispatch({ type: ADD_ITEM_TO_SHOPPING_LIST, payload: { id: props } }),
+      dispatch(addItem(props)),
     deleteItem: () =>
       dispatch({
         type: DELETE_ITEM_FROM_LIST,
