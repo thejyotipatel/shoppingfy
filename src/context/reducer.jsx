@@ -95,19 +95,21 @@ const reducer = (state, action) => {
   }
   if (action.type === ADD_ITEM_TO_SHOPPING_LIST) {
     let tempList = null
-    
+
     let tempSameItem =
-    state.currentShoopingList.length === 0
-    ? []
-    : state.currentShoopingList.filter((listItem) => listItem[0].id === action.payload.id)
-    
+      state.currentShoopingList.length === 0
+        ? []
+        : state.currentShoopingList.filter(
+            (listItem) => listItem[0].id === action.payload.id
+          )
+
     let alertType = ''
     let alertText = ''
 
     if (state.currentShoopingList.length === 0 || tempSameItem.length === 0) {
-     tempList = state.list.filter((listItem) =>
-        listItem.id === action.payload.id 
-      ) 
+      tempList = state.list.filter(
+        (listItem) => listItem.id === action.payload.id
+      )
       alertType = 'success'
       alertText = 'Item is added!'
     } else {
@@ -116,7 +118,10 @@ const reducer = (state, action) => {
     }
     return {
       ...state,
-      currentShoopingList: tempList === null?state.currentShoopingList:[...state.currentShoopingList,tempList ],
+      currentShoopingList:
+        tempList === null
+          ? state.currentShoopingList
+          : [...state.currentShoopingList, tempList],
       detailBox: false,
       addItemBox: false,
       listsBox: true,
@@ -126,16 +131,14 @@ const reducer = (state, action) => {
     }
   }
   if (action.type === DELETE_TOGGLE) {
-    let tempList = state.currentShoopingList.map(
-      (listItem) => {
-        if (listItem[0].id === action.payload.id) {
-           listItem[0].showDeleteBtn= !listItem[0].showDeleteBtn 
-        }else{
-          listItem[0].showDeleteBtn= false
-        }
-        return listItem
+    let tempList = state.currentShoopingList.map((listItem) => {
+      if (listItem[0].id === action.payload.id) {
+        listItem[0].showDeleteBtn = !listItem[0].showDeleteBtn
+      } else {
+        listItem[0].showDeleteBtn = false
       }
-   )
+      return listItem
+    })
     return {
       ...state,
       currentShoopingList: tempList,
@@ -154,33 +157,68 @@ const reducer = (state, action) => {
     }
   }
   if (action.type === CANCEL_LIST) {
-    let list = {
-      list:state.currentShoopingList, id: new Date().getUTCMilliseconds(), shoppingListName: state.currentShoopingListName,status: 'Canceled'
+    let alertType = ''
+    let alertText = ''
+    let list = null
+    let tempList = []
+
+    if (state.currentShoopingList.length === 0) {
+      tempList = state.shoopingLists
+      alertType = 'warning'
+      alertText = 'Your Shoppinglist is Empty!'
+    } else {
+      list = {
+        list: state.currentShoopingList,
+        id: new Date().getUTCMilliseconds(),
+        shoppingListName: state.currentShoopingListName,
+        status: 'Canceled',
+        date: new Date().toDateString(),
+      }
+      tempList = [...state.shoopingLists, list]
+      alertType = 'warning'
+      alertText = 'List is canceled!'
     }
     return {
       ...state,
-      shoopingLists: [...state.shoopingLists, list],
+      shoopingLists: tempList,
       currentShoopingList: [],
       currentShoopingListName: 'Grocery List',
       showAlert: true,
-      alertType: 'warning',
-      alertText: 'List is canceled!',
+      alertType: alertType,
+      alertText: alertText,
     }
   }
   if (action.type === SET_COMPLETE_LIST) {
-    let list = {
-      list:state.currentShoopingList, id: new Date().getUTCMilliseconds(), shoppingListName: state.currentShoopingListName,status: 'Completed'
+    let alertType = ''
+    let alertText = ''
+    let list = null
+    let tempList = []
+    if (state.currentShoopingList.length === 0) {
+      tempList = state.shoopingLists
+      alertType = 'warning'
+      alertText = 'Your Shoppinglist is Empty!'
+    } else {
+      list = {
+        list: state.currentShoopingList,
+        id: new Date().getUTCMilliseconds(),
+        shoppingListName: state.currentShoopingListName,
+        status: 'Completed',
+        date: new Date().toDateString(),
+      }
+      tempList = [...state.shoopingLists, list]
+      alertType = 'success'
+      alertText = 'List is completed!'
     }
     // console.log(state.shoopingLists)
     // console.log(list)
     return {
       ...state,
-      shoopingLists: [...state.shoopingLists, list],
+      shoopingLists: tempList,
       currentShoopingList: [],
       currentShoopingListName: 'Grocery List',
       showAlert: true,
-      alertType: 'warning',
-      alertText: 'List is completed!',
+      alertType: alertType,
+      alertText: alertText,
     }
   }
   if (action.type === RENAME_LIST) {

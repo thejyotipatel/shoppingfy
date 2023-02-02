@@ -37,7 +37,7 @@ import {
   DELETE_TOGGLE,
 } from '../context/action'
 
-const History = ({shoopingLists}) => {
+const History = ({ shoopingLists }) => {
   return (
     <>
       <Text fontSize='1.5em' fontWeight={'600'} textAlign={'left'}>
@@ -45,57 +45,56 @@ const History = ({shoopingLists}) => {
       </Text>
 
       <Box my={'8'}>
-
         <Text textAlign={'left'}>November 2020</Text>
-{shoopingLists.length === 0 ? (
+        {shoopingLists.length === 0 ? (
           <Image src={shopping_re} alt='shopping_re.avg' />
         ) : (
           <>
-          {shoopingLists.map((item) => {
-              const { id, list, status, shoppingListName} = item
+            {shoopingLists.map((item) => {
+              const { id, date, status, shoppingListName } = item
               // console.log(item)
               return (
-
-        <Flex
-          my={'4'}
-          justifyContent={'space-between'}
-          cursor={'pointer'}
-          align='center'
-          bg='whiteAlpha.200'
-          borderRadius={'md'}
-          padding='4'
-          boxShadow={'md'}
-          _hover={{
-            boxShadow: 'lg',
-          }}
-          key={id}
-        >
-          <Text>{shoppingListName}</Text>
-          <Flex color={'gray.400'} alignItems='center' gap={'2'}>
-            <Icon as={FcCalendar} />
-            <Text>Mon 24.8.{new Date().getUTCFullYear().toString()}</Text>
-            <Button variant={'outline'} colorScheme={status === 'Canceled'? 'red':'blue'}>
-              {status}
-            </Button>
-            <IconButton
-              color={'yellow.700'}
-              fontSize='4xl'
-              variant={'unstyled'}
-              fontWeight={'800'}
-              icon={<BiChevronRight />}
-            />
-          </Flex>
-        </Flex>
-              )})
-          }
-          </>)
-}
+                <Flex
+                  my={'4'}
+                  justifyContent={'space-between'}
+                  cursor={'pointer'}
+                  align='center'
+                  bg='whiteAlpha.200'
+                  borderRadius={'md'}
+                  padding='4'
+                  boxShadow={'md'}
+                  _hover={{
+                    boxShadow: 'lg',
+                  }}
+                  key={id}
+                >
+                  <Text>{shoppingListName}</Text>
+                  <Flex color={'gray.400'} alignItems='center' gap={'2'}>
+                    <Icon as={FcCalendar} />
+                    <Text>{date}</Text>
+                    <Button
+                      variant={'outline'}
+                      colorScheme={status === 'Canceled' ? 'red' : 'blue'}
+                    >
+                      {status}
+                    </Button>
+                    <IconButton
+                      color={'yellow.700'}
+                      fontSize='4xl'
+                      variant={'unstyled'}
+                      fontWeight={'800'}
+                      icon={<BiChevronRight />}
+                    />
+                  </Flex>
+                </Flex>
+              )
+            })}
+          </>
+        )}
       </Box>
-       
     </>
   )
 }
-
 
 const mapStateToProps = (state) => {
   return {
@@ -107,4 +106,4 @@ const mapDispatchToProps = (dispatch) => {
   return {}
 }
 
-export default  connect(mapStateToProps, mapDispatchToProps)(History)
+export default connect(mapStateToProps, mapDispatchToProps)(History)

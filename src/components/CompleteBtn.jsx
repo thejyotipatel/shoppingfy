@@ -45,9 +45,9 @@ import {
   AlertDialogOverlay,
 } from '@chakra-ui/react'
 import { connect } from 'react-redux'
-import { CANCEL_LIST,SET_COMPLETE_LIST } from '../context/action'
+import { CANCEL_LIST, SET_COMPLETE_LIST } from '../context/action'
 
-const CompleteBtn = ({ cancelList,completeList }) => {
+const CompleteBtn = ({ cancelList, completeList }) => {
   const { isOpen, onOpen, onClose } = useDisclosure()
 
   const cancelListOnDeleteBtn = () => {

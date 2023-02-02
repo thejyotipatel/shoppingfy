@@ -34,8 +34,8 @@ import { useState } from 'react'
 import Item from '../components/Item'
 import { useEffect } from 'react'
 import { connect } from 'react-redux'
- 
-const Home = ({ list=[] }) => {
+
+const Home = ({ list = [] }) => {
   // const { listOfItems, displayDetailItem } = useAppContext()
   const [searchItems, setSearchItems] = useState('')
   const addItem = (id) => {
