@@ -84,10 +84,18 @@ const ShoppingList = ({
         p={'4'}
         bgColor={'green.100'}
         width={'100%'}
-        maxW='400px'
-        height={'100vh'}
-        minH={'fit-content'}
+        // overflowY={'scroll'}
+        // overflowY={{ md: 'scroll', lg: 'hidden' }}
+        // h={'90vh'}
+
+        // h={'600px'}
+        // maxW='400px'
+        // height={'600px'}
+        // maxW={{ md: '100%', lg: '400px' }}
+        // height={'100vh'}
+        minH={'100vh'}
         position='relative'
+        // scaleY={true}
       >
         <Flex
           borderRadius={'lg'}
@@ -160,21 +168,28 @@ const ShoppingList = ({
         >
           Meat and fish
         </Text>
-        {currentShoopingList.length === 0 ? (
-          <Image src={shopping_re} alt='shopping_re.avg' />
-        ) : (
-          <>
-            {currentShoopingList.map((item) => {
-              const { id, name, showDeleteBtn } = item[0]
-              // console.log(item)
-              return (
-                <Flex
-                  key={id}
-                  width={'100%'}
-                  justifyContent={'space-between'}
-                  alignItems='center'
-                >
-                  {/* {toogle && (
+        <VStack
+          overflow={'auto'}
+          h={{ md: '400px', lg: 'auto' }}
+          width={'300px'}
+          minW={{ md: '600px', lg: '90%' }}
+          pos={'relative'}
+        >
+          {currentShoopingList.length === 0 ? (
+            <Image src={shopping_re} alt='shopping_re.avg' />
+          ) : (
+            <>
+              {currentShoopingList.map((item) => {
+                const { id, name, showDeleteBtn } = item[0]
+                // console.log(item)
+                return (
+                  <Flex
+                    key={id}
+                    width={'100%'}
+                    justifyContent={'space-between'}
+                    alignItems='center'
+                  >
+                    {/* {toogle && (
                     <Checkbox
                       colorScheme='green'
                       size={'lg'}
@@ -182,62 +197,63 @@ const ShoppingList = ({
                       onChange={() => setCompleteItem(id)}
                     ></Checkbox>
                   )} */}
-                     {/* textDecoration={list?.completed ? 'line-through' : 'none'} */}
-                  <Button
-                    variant={'unstyled'}
-                     fontSize='18px'
-                    textTransform='capitalize'
-                    onClick={() => deleteItemBtn(id)}
-                  >
-                    {name}
-                  </Button>
-
-                  {showDeleteBtn && (
-                    <IconButton
-                      variant={'unstyled'}
-                      color={'red'}
-                      fontSize={'2xl'}
-                      my={2}
-                      icon={<AiFillDelete />}
-                      onClick={() => deleteBtn(id)}
-                    />
-                  )}
-
-                  <Flex alignItems={'center'}>
-                    {toogleAmount && (
-                      <IconButton
-                        colorScheme={'green'}
-                        backgroundColor={'green.500'}
-                        color={'gray.50'}
-                        size='sm'
-                        icon={<HiMinus />}
-                        onClick={() => amountChange(-1)}
-                      />
-                    )}
+                    {/* textDecoration={list?.completed ? 'line-through' : 'none'} */}
                     <Button
                       variant={'unstyled'}
-                      color='green'
-                      p={'0.5em'}
-                      onClick={setToogleAmount.toggle}
+                      fontSize='18px'
+                      textTransform='capitalize'
+                      onClick={() => deleteItemBtn(id)}
                     >
-                      {amount} pcs
+                      {name}
                     </Button>
-                    {toogleAmount && (
+
+                    {showDeleteBtn && (
                       <IconButton
-                        colorScheme={'green'}
-                        backgroundColor={'green.500'}
-                        color={'gray.50'}
-                        size='sm'
-                        icon={<HiPlus />}
-                        onClick={() => amountChange(1)}
+                        variant={'unstyled'}
+                        color={'red'}
+                        fontSize={'2xl'}
+                        my={2}
+                        icon={<AiFillDelete />}
+                        onClick={() => deleteBtn(id)}
                       />
                     )}
+
+                    <Flex alignItems={'center'}>
+                      {toogleAmount && (
+                        <IconButton
+                          colorScheme={'green'}
+                          backgroundColor={'green.500'}
+                          color={'gray.50'}
+                          size='sm'
+                          icon={<HiMinus />}
+                          onClick={() => amountChange(-1)}
+                        />
+                      )}
+                      <Button
+                        variant={'unstyled'}
+                        color='green'
+                        p={'0.5em'}
+                        onClick={setToogleAmount.toggle}
+                      >
+                        {amount} pcs
+                      </Button>
+                      {toogleAmount && (
+                        <IconButton
+                          colorScheme={'green'}
+                          backgroundColor={'green.500'}
+                          color={'gray.50'}
+                          size='sm'
+                          icon={<HiPlus />}
+                          onClick={() => amountChange(1)}
+                        />
+                      )}
+                    </Flex>
                   </Flex>
-                </Flex> 
                 )
-             })}
-          </>
-        )}
+              })}
+            </>
+          )}
+        </VStack>
         <CompleteBtn />
       </VStack>
     </>
@@ -264,5 +280,5 @@ const mapDispatchToProps = (dispatch) => {
       }),
   }
 }
- 
+
 export default connect(mapStateToProps, mapDispatchToProps)(ShoppingList)

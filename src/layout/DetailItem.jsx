@@ -36,10 +36,19 @@ import { connect } from 'react-redux'
 import {
   BACK_BUTTEN,
   ADD_ITEM_TO_LIST,
-  DELETE_ITEM_FROM_LIST,ADD_ITEM_TO_SHOPPING_LIST,backBtn,addItem
+  DELETE_ITEM_FROM_LIST,
+  ADD_ITEM_TO_SHOPPING_LIST,
+  backBtn,
+  addItem,
 } from '../context/action'
 
-const DetailItem = ({ itemDetails, backButten, addItemToList, deleteItem,addItem }) => {
+const DetailItem = ({
+  itemDetails,
+  backButten,
+  addItemToList,
+  deleteItem,
+  addItem,
+}) => {
   const { category, id, image, name, note } = itemDetails[0]
 
   return (
@@ -124,7 +133,7 @@ const DetailItem = ({ itemDetails, backButten, addItemToList, deleteItem,addItem
         </Flex> */}
         </Box>
         <Flex
-          position={'fixed'}
+          // position={'fixed'}
           bottom='0px'
           maxW={'400px'}
           width={'100%'}
@@ -168,8 +177,7 @@ const mapDispatchToProps = (dispatch) => {
   // console.log(state)
   return {
     backButten: () => dispatch(backBtn),
-   addItem: (props) =>
-      dispatch(addItem(props)),
+    addItem: (props) => dispatch(addItem(props)),
     deleteItem: () =>
       dispatch({
         type: DELETE_ITEM_FROM_LIST,

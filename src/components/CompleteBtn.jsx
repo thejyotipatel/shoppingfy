@@ -56,10 +56,10 @@ const CompleteBtn = ({ cancelList, completeList }) => {
   }
   return (
     <Flex
-      position={'absolute'}
-      bottom='0'
+      // position={'sticky'}
+      // bottom='20px'
       width={'inherit'}
-      justifyContent='space-evenly'
+      // justifyContent='spassce-evenly'
       bgColor={'gray.50'}
     >
       <Button

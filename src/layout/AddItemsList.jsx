@@ -92,7 +92,11 @@ const AddItemsList = ({ itemDetails, backButten, addItemToList }) => {
           <Icon fontSize='1.5em' as={MdOutlineKeyboardBackspace} />
           back
         </Button>
-        <Text fontSize={'1.2em'} textAlign='left' w={'inherit'}>
+        <Text
+          fontSize={{ base: '24px', md: '40px', lg: '56px' }}
+          textAlign='left'
+          w={'inherit'}
+        >
           Add a new item
         </Text>
         <Box as='form' w={'inherit'} onSubmit={handleSubmit}>

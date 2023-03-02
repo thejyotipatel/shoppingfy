@@ -3,7 +3,6 @@ import List from './utils/List'
 import { createStore } from 'redux'
 import reducer from './context/reducer'
 import { Provider } from 'react-redux'
-// import { HANDLE_CHANGE } from './context/action'
 
 const initialStore = {
   list: List,

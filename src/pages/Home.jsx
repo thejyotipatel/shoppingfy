@@ -48,7 +48,13 @@ const Home = ({ list = [] }) => {
   }
   return (
     <>
-      <Box scrollBehavior={'contant'} m={4}>
+      <Box
+        overflow={{ base: 'scroll', lg: 'auto' }}
+        overflowX={'hidden'}
+        h={{ md: '85vh', lg: 'auto' }}
+        m={4}
+        ml={'58px'}
+      >
         <Stack direction={{ base: 'column', md: 'row' }} gap={'8'}>
           <Text fontSize='1.5em' maxW={'30ch'} textAlign={'left'}>
             <Highlight
