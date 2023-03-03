@@ -56,7 +56,8 @@ const CompleteBtn = ({ cancelList, completeList }) => {
   }
   return (
     <Flex
-      // position={'sticky'}
+      position={'absolute'}
+      bottom={0}
       // bottom='20px'
       width={'inherit'}
       // justifyContent='spassce-evenly'

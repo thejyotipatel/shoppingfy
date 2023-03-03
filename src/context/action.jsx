@@ -19,9 +19,9 @@ export const SET_COMPLETE_LIST = 'SET_COMPLETE_LIST'
 export const SET_COMPLETE_ITEM = 'SET_COMPLETE_ITEM'
 export const CHECK_ALREADY_PRESENT_ITEM = 'CHECK_ALREADY_PRESENT_ITEM'
 
-export const backBtn = ()=>{
- return { type: BACK_BUTTEN }
-}
-export const addItem = (props)=>{
- return { type: ADD_ITEM_TO_SHOPPING_LIST, payload: { id: props } }
+// export const backBtn = ()=>{
+//  return { type: BACK_BUTTEN }
+// }
+export const addItem = (props) => {
+  return { type: ADD_ITEM_TO_SHOPPING_LIST, payload: { id: props } }
 }

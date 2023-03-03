@@ -1,44 +1,20 @@
-import React, { useEffect } from 'react'
 import {
   Box,
-  Tabs,
-  TabList,
-  TabPanels,
-  Tab,
-  TabPanel,
-  Tooltip,
-  Icon,
-  Text,
-  Image,
   Button,
-  IconButton,
-  HStack,
-  InputGroup,
-  InputLeftElement,
   Flex,
-  Stack,
-  Highlight,
-  Wrap,
-  WrapItem,
-  Center,
-  VStack,
-  Container,
   FormControl,
   FormLabel,
-  Textarea,
+  Icon,
   Input,
-  useBoolean,
-  Alert,
-  AlertIcon,
-  useDisclosure,
+  Text,
+  Textarea,
+  VStack,
 } from '@chakra-ui/react'
-import { RiSearchLine } from 'react-icons/ri'
-import { HiPencil } from 'react-icons/hi'
+import React, { useState } from 'react'
 import { MdOutlineKeyboardBackspace } from 'react-icons/md'
-import { useState } from 'react'
 
 import { connect } from 'react-redux'
-import { BACK_BUTTEN, ADD_ITEM_TO_LIST, backBtn } from '../context/action'
+import { ADD_ITEM_TO_LIST, BACK_BUTTEN } from '../context/action'
 
 const initalState = {
   name: '',
@@ -66,7 +42,6 @@ const AddItemsList = ({ itemDetails, backButten, addItemToList }) => {
     <VStack
       p={'4'}
       width={'100%'}
-      maxW='400px'
       height={'100vh'}
       minH={'fit-content'}
       spacing='4'
@@ -92,11 +67,7 @@ const AddItemsList = ({ itemDetails, backButten, addItemToList }) => {
           <Icon fontSize='1.5em' as={MdOutlineKeyboardBackspace} />
           back
         </Button>
-        <Text
-          fontSize={{ base: '24px', md: '40px', lg: '56px' }}
-          textAlign='left'
-          w={'inherit'}
-        >
+        <Text fontSize={'2xl'} textAlign='left' w={'inherit'}>
           Add a new item
         </Text>
         <Box as='form' w={'inherit'} onSubmit={handleSubmit}>
@@ -179,13 +150,18 @@ const AddItemsList = ({ itemDetails, backButten, addItemToList }) => {
               <option value='Fruit' />
             </datalist>
           </FormControl>
-          <Flex py={'4'} width={'inherit'} justifyContent='space-evenly'>
+          <Flex
+            py={'4'}
+            justifyContent='space-evenly'
+            width={'100%'}
+            bgColor={'gray.50'}
+          >
             <Button
               onClick={() => setValue(initalState)}
               color={'gray.400'}
               variant='unstyled'
             >
-              clear
+              Clear
             </Button>
             <Button type='submit' colorScheme={'green'}>
               Save
@@ -202,7 +178,7 @@ const mapStateToProps = (state) => {
 }
 const mapDispatchToProps = (dispatch) => {
   return {
-    backButten: () => dispatch(backBtn()),
+    backButten: () => dispatch({ type: BACK_BUTTEN }),
     addItemToList: (props) =>
       dispatch({ type: ADD_ITEM_TO_LIST, payload: { item: props } }),
   }

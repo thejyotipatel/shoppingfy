@@ -1,12 +1,12 @@
+import { Alert, AlertIcon, Flex } from '@chakra-ui/react'
 import React, { useEffect } from 'react'
-import { Grid, Box, Alert, AlertIcon, Flex } from '@chakra-ui/react'
 import { connect } from 'react-redux'
+import { Outlet } from 'react-router-dom'
 import { CLEAR_ALERT } from '../context/action'
-import Sidebar from '../layout/Sidebar'
-import Home from './Home'
 import AddItemsList from '../layout/AddItemsList'
-import ShoppingList from '../layout/ShoppingList'
 import DetailItem from '../layout/DetailItem'
+import ShoppingList from '../layout/ShoppingList'
+import Sidebar from '../layout/Sidebar'
 
 const Dashboard = ({
   showAlert,
@@ -39,20 +39,13 @@ const Dashboard = ({
           {alertText}
         </Alert>
       )}
-      {/* <Grid
-        gridTemplateColumns={{ md: 'auto', lg: '73% 27%' }}
-        justify-items={'center'}
-        // fontSize={{ base: '24px', md: '40px', lg: '56px' }}
-      >
-        <Box>
-          <Sidebar />
-        </Box>
-        {detailBox && <DetailItem />}
-        {addItemBox && <AddItemsList />}
-        {listsBox && <ShoppingList />}
-      </Grid> */}
       <Flex wrap={'wrap'} position={'relative'}>
-        <Flex flex={8} minW={'500px'} position={'inherit'}>
+        <Flex
+          flex={8}
+          minW={'500px'}
+          position={'inherit'}
+          flexDirection='column'
+        >
           <Flex
             flex={1}
             alignItems={'center'}
@@ -62,12 +55,10 @@ const Dashboard = ({
             bgColor={'white'}
           >
             <Sidebar />
-            {/* <AddItemsList /> */}
           </Flex>
-          <Home />
+          <Outlet />
         </Flex>
-        <Flex flex={3} minW={'400px'} ml={'50px'}>
-          {/* <ShoppingList /> */}
+        <Flex flex={3} ml={'50px'}>
           {detailBox && <DetailItem />}
           {addItemBox && <AddItemsList />}
           {listsBox && <ShoppingList />}

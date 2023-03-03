@@ -92,8 +92,8 @@ const ShoppingList = ({
         // maxW='400px'
         // height={'600px'}
         // maxW={{ md: '100%', lg: '400px' }}
-        // height={'100vh'}
-        minH={'100vh'}
+        height={{ md: 'auto', lg: '100vh' }}
+        // minH={'100vh'}
         position='relative'
         // scaleY={true}
       >
@@ -170,7 +170,7 @@ const ShoppingList = ({
         </Text>
         <VStack
           overflow={'auto'}
-          h={{ md: '400px', lg: 'auto' }}
+          // h={{ md: '400px', lg: 'auto' }}
           width={'300px'}
           minW={{ md: '600px', lg: '90%' }}
           pos={'relative'}

@@ -40,11 +40,17 @@ import {
 const History = ({ shoopingLists }) => {
   return (
     <>
-      <Text fontSize='1.5em' fontWeight={'600'} textAlign={'left'}>
+      <Text
+        ml={'58px'}
+        height={{ md: '80vh', lg: '100%' }}
+        fontSize='1.5em'
+        fontWeight={'600'}
+        textAlign={'left'}
+      >
         Shooping history
       </Text>
 
-      <Box my={'8'}>
+      <Box my={'8'} ml={'58px'} height={{ base: '80vh', lg: '100%' }}>
         <Text textAlign={'left'}>November 2020</Text>
         {shoopingLists.length === 0 ? (
           <Image src={shopping_re} alt='shopping_re.avg' />

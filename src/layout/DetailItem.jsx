@@ -1,46 +1,8 @@
+import { Box, Button, Flex, Icon, Image, Text, VStack } from '@chakra-ui/react'
 import React from 'react'
-import {
-  Box,
-  Tabs,
-  TabList,
-  TabPanels,
-  Tab,
-  TabPanel,
-  Tooltip,
-  Icon,
-  Text,
-  Image,
-  Button,
-  IconButton,
-  HStack,
-  InputGroup,
-  InputLeftElement,
-  Flex,
-  Stack,
-  Highlight,
-  Wrap,
-  WrapItem,
-  Center,
-  VStack,
-  Container,
-  FormControl,
-  FormLabel,
-  Textarea,
-  Input,
-  Link,
-} from '@chakra-ui/react'
-import { RiSearchLine } from 'react-icons/ri'
-import { HiPencil } from 'react-icons/hi'
 import { MdOutlineKeyboardBackspace } from 'react-icons/md'
 import { connect } from 'react-redux'
-import {
-  BACK_BUTTEN,
-  ADD_ITEM_TO_LIST,
-  DELETE_ITEM_FROM_LIST,
-  ADD_ITEM_TO_SHOPPING_LIST,
-  backBtn,
-  addItem,
-} from '../context/action'
+import { addItem, BACK_BUTTEN, DELETE_ITEM_FROM_LIST } from '../context/action'
 
 const DetailItem = ({
   itemDetails,
@@ -56,7 +18,7 @@ const DetailItem = ({
       <VStack
         p={'4'}
         width={'100%'}
-        maxW='400px'
+        // maxW='400px'
         height={'100vh'}
         minH={'fit-content'}
         position={'relative'}
@@ -125,21 +87,8 @@ const DetailItem = ({
               {note}
             </Text>
           </VStack>
-          {/* <Flex py={'4'} width={'inherit'} justifyContent='space-evenly'>
-          <Button color={'gray.400'} variant='unstyled'>
-            Delete
-          </Button>
-          <Button colorScheme={'green'}>Add to list</Button>
-        </Flex> */}
         </Box>
-        <Flex
-          // position={'fixed'}
-          bottom='0px'
-          maxW={'400px'}
-          width={'100%'}
-          justifyContent='space-evenly'
-          bgColor={'gray.50'}
-        >
+        <Flex width={'100%'} justifyContent='space-evenly' bgColor={'gray.50'}>
           <Button
             width='100%'
             variant={'unstyled'}
@@ -176,12 +125,11 @@ const mapStateToProps = (state) => {
 const mapDispatchToProps = (dispatch) => {
   // console.log(state)
   return {
-    backButten: () => dispatch(backBtn),
+    backButten: () => dispatch({ type: BACK_BUTTEN }),
     addItem: (props) => dispatch(addItem(props)),
     deleteItem: () =>
       dispatch({
         type: DELETE_ITEM_FROM_LIST,
-        // payload: { id: ownProps.ItemDetails[0].id },
       }),
   }
 }

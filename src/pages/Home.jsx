@@ -1,42 +1,19 @@
-import React from 'react'
 import {
   Box,
-  Tabs,
-  TabList,
-  TabPanels,
-  Tab,
-  TabPanel,
-  Tooltip,
-  Icon,
-  Text,
-  Image,
-  Button,
-  IconButton,
-  HStack,
-  InputGroup,
-  Input,
-  InputLeftElement,
-  Flex,
-  Stack,
   Highlight,
+  Input,
+  InputGroup,
+  InputLeftElement,
+  Stack,
+  Text,
   Wrap,
-  WrapItem,
-  Center,
-  Container,
-  Grid,
 } from '@chakra-ui/react'
+import React, { useState } from 'react'
 import { RiSearchLine } from 'react-icons/ri'
-import { AiOutlinePlus } from 'react-icons/ai'
-import ShoppingList from '../layout/ShoppingList'
-import AddItemsList from '../layout/AddItemsList'
-import DetailItem from '../layout/DetailItem'
-import { useState } from 'react'
-import Item from '../components/Item'
-import { useEffect } from 'react'
 import { connect } from 'react-redux'
+import Item from '../components/Item'
 
 const Home = ({ list = [] }) => {
-  // const { listOfItems, displayDetailItem } = useAppContext()
   const [searchItems, setSearchItems] = useState('')
   const addItem = (id) => {
     console.log(id)
@@ -54,6 +31,7 @@ const Home = ({ list = [] }) => {
         h={{ md: '85vh', lg: 'auto' }}
         m={4}
         ml={'58px'}
+        height={{ md: '80vh', lg: '100%' }}
       >
         <Stack direction={{ base: 'column', md: 'row' }} gap={'8'}>
           <Text fontSize='1.5em' maxW={'30ch'} textAlign={'left'}>
@@ -66,7 +44,7 @@ const Home = ({ list = [] }) => {
                 fontWeight: '800',
               }}
             >
-              Shoopingify allows you take your shopping list wherever you go
+              Shoopingify allows you take your shopping list wherever you go.
             </Highlight>
           </Text>
           <InputGroup>
